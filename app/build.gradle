@@ -63,6 +63,9 @@ dependencies {
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
 
+    // Navigation Compose
+    implementation "androidx.navigation:navigation-compose:$navigationComposeVersion"
+
     // ==============================================================
     // Party libraries sorted by product name in alphabetical order
 
