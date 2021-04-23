@@ -55,10 +55,14 @@ dependencies {
     // Activity Compose
     implementation "androidx.activity:activity-compose:$activityComposeVersion"
 
+    // Constraint Layout
+    implementation "androidx.constraintlayout:constraintlayout-compose:$constraintLayoutComposeVersion"
+
     // Compose
     implementation "androidx.compose.ui:ui:$composeVersion"
     implementation "androidx.compose.material:material:$composeVersion"
     implementation "androidx.compose.ui:ui-tooling:$composeVersion"
+    implementation "androidx.compose.material:material-icons-extended:$composeVersion"
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
@@ -68,6 +72,9 @@ dependencies {
 
     // ==============================================================
     // Party libraries sorted by product name in alphabetical order
+
+    // Accompanist
+    implementation "dev.chrisbanes.accompanist:accompanist-coil:$accompanistCoilVersion"
 
 
     // ==============================================================

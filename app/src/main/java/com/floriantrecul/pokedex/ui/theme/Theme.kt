@@ -9,23 +9,25 @@ import androidx.compose.runtime.Composable
 @Composable
 fun darkTheme() = darkColors(
     primary = gray900,
-    onPrimary = gray900,
+    onPrimary = white,
     secondary = gray900,
+    onSecondary = gray900,
     background = gray900,
     surface = gray700,
-    onBackground = white,
-    onSurface = white,
+    onBackground = white.copy(alpha = .8f),
+    onSurface = white.copy(alpha = .8f),
 )
 
 @Composable
 fun lightTheme() = lightColors(
     primary = white,
-    onPrimary = gray900,
+    onPrimary = gray600,
     secondary = white,
+    onSecondary = gray900.copy(alpha = .8f),
     background = white,
     surface = white,
-    onBackground = white,
-    onSurface = gray900
+    onBackground = gray900.copy(alpha = .8f),
+    onSurface = gray900.copy(alpha = .8f),
 )
 
 @Composable
