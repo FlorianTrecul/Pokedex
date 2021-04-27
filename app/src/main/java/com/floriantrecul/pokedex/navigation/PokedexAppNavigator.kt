@@ -1,4 +1,4 @@
-package com.floriantrecul.pokedex.ui.screens.home
+package com.floriantrecul.pokedex.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -9,9 +9,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
+import com.floriantrecul.pokedex.navigation.Destinations.POKEMON_DETAIL_SCREEN
+import com.floriantrecul.pokedex.navigation.Destinations.POKEMON_LIST_SCREEN
 import com.floriantrecul.pokedex.ui.screens.details.PokemonDetailsScreen
-import com.floriantrecul.pokedex.ui.screens.home.Destinations.POKEMON_DETAIL_SCREEN
-import com.floriantrecul.pokedex.ui.screens.home.Destinations.POKEMON_LIST_SCREEN
 import com.floriantrecul.pokedex.ui.screens.list.PokemonListScreen
 
 private object Destinations {
@@ -20,28 +20,33 @@ private object Destinations {
 }
 
 class Actions(navController: NavHostController) {
-    val pokemonListScreen: () -> Unit = {
+    val navigateToPokemonListScreen: () -> Unit = {
         navController.navigate(POKEMON_LIST_SCREEN)
     }
-    val pokemonDetailsScreen: (String) -> Unit = { pokemonId ->
+    val navigateToPokemonDetailsScreen: (String) -> Unit = { pokemonId ->
         navController.navigate("$POKEMON_DETAIL_SCREEN/$pokemonId")
     }
-    val upPress: () -> Unit = {
+    val navigateBack: () -> Unit = {
         navController.navigateUp()
     }
 }
 
 @Composable
-fun PokedexHomeScreen(startDestination: String = POKEMON_LIST_SCREEN) {
+fun PokedexAppNavigator(startDestination: String = POKEMON_LIST_SCREEN) {
     val navController = rememberNavController()
     val actions = remember(navController) { Actions(navController) }
 
     NavHost(navController = navController, startDestination = startDestination) {
         composable(POKEMON_LIST_SCREEN) {
-            PokemonListScreen(pokemonDetailsScreen = actions.pokemonDetailsScreen)
+            PokemonListScreen(pokemonDetailsScreen = actions.navigateToPokemonDetailsScreen)
         }
-        composable("$POKEMON_DETAIL_SCREEN/{pokemonId}",
-            arguments = listOf(navArgument("pokemonId") { type = NavType.StringType })
+        composable(
+            "$POKEMON_DETAIL_SCREEN/{pokemonId}",
+            arguments = listOf(
+                navArgument("pokemonId") {
+                    type = NavType.StringType
+                },
+            )
         ) { backStackEntry ->
             val pokemonId = requireNotNull(backStackEntry.arguments?.getString("pokemonId"))
             PokemonDetailsScreen()
