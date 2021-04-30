@@ -68,7 +68,9 @@ dependencies {
 
     // Dagger Hilt - Dependency Injection
     implementation "com.google.dagger:hilt-android:$daggerHiltVersion"
+    implementation "androidx.hilt:hilt-navigation-compose:$daggerHiltNavigationComposeVersion"
     kapt "com.google.dagger:hilt-compiler:$daggerHiltVersion"
+    kapt "androidx.hilt:hilt-compiler:$daggerHiltCompilerVersion"
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
@@ -82,6 +84,20 @@ dependencies {
     // Accompanist
     implementation "dev.chrisbanes.accompanist:accompanist-coil:$accompanistCoilVersion"
 
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+
+    // Moshi
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
+
+    // OkHttp
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpLoggingInterceptorVersion"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
 
     // ==============================================================
     // Testing libraries
