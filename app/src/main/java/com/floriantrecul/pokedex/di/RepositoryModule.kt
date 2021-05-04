@@ -1,20 +1,20 @@
 package com.floriantrecul.pokedex.di
 
-import com.floriantrecul.pokedex.data.api.network.model.PokemonDtoMapper
+import com.floriantrecul.pokedex.data.api.network.mapper.PokemonDtoMapper
 import com.floriantrecul.pokedex.data.api.network.service.PokedexService
 import com.floriantrecul.pokedex.data.repository.PokemonRepository
 import com.floriantrecul.pokedex.data.repository.PokemonRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.scopes.ActivityScoped
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 @Module
-@InstallIn(ActivityComponent::class)
+@InstallIn(ViewModelComponent::class)
 object RepositoryModule {
 
-    @ActivityScoped
+    @ViewModelScoped
     @Provides
     fun providePokemonRepository(
         pokedexService: PokedexService,

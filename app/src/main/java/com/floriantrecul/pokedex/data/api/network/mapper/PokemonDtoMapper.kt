@@ -1,6 +1,9 @@
-package com.floriantrecul.pokedex.data.api.network.model
+package com.floriantrecul.pokedex.data.api.network.mapper
 
 import com.floriantrecul.pokedex.data.api.domain.DomainMapper
+import com.floriantrecul.pokedex.data.api.network.model.PokemonDto
+import com.floriantrecul.pokedex.data.api.network.model.PokemonNamedApiDto
+import com.floriantrecul.pokedex.data.api.network.model.PokemonSpeciesDto
 import com.floriantrecul.pokedex.data.model.Pokemon
 import com.floriantrecul.pokedex.data.model.PokemonItem
 import com.floriantrecul.pokedex.util.Constants.POKEMON_IMAGE_URL

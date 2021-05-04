@@ -1,6 +1,6 @@
 package com.floriantrecul.pokedex.data.repository
 
-import com.floriantrecul.pokedex.data.api.network.model.PokemonDtoMapper
+import com.floriantrecul.pokedex.data.api.network.mapper.PokemonDtoMapper
 import com.floriantrecul.pokedex.data.api.network.service.PokedexService
 import com.floriantrecul.pokedex.data.model.Pokemon
 import com.floriantrecul.pokedex.data.model.PokemonItem
