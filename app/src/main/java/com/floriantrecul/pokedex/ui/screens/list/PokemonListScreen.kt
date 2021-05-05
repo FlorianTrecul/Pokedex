@@ -19,9 +19,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.ui.components.PokemonCard
 import com.floriantrecul.pokedex.ui.data.model.PokemonItemUiModel
 import com.floriantrecul.pokedex.util.Resource.Empty
@@ -60,14 +62,16 @@ fun PokemonList(pokemons: List<PokemonItemUiModel>) {
             modifier = Modifier.padding(8.dp)
         ) {
             Text(
-                text = "Pokédex",
+                text = stringResource(R.string.pokemon_list_title),
+                modifier = Modifier.padding(8.dp),
                 color = Color.Red,
                 fontSize = 30.sp,
                 fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = "The Pokédex contains detailed stats for every creature from the Pokémon games.",
+                text = stringResource(R.string.pokemon_list_description),
+                modifier = Modifier.padding(8.dp),
                 color = MaterialTheme.colors.onPrimary,
                 fontWeight = FontWeight.Bold
             )

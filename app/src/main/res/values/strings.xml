@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Pokedex</string>
+    <string name="pokemon_list_title">Pokédex</string>
+    <string name="pokemon_list_description">The Pokédex contains detailed stats for every creature from the Pokémon games.</string>
 </resources>
