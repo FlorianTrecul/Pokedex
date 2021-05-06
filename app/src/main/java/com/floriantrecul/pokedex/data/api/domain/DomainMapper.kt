@@ -3,13 +3,12 @@ package com.floriantrecul.pokedex.data.api.domain
 import com.floriantrecul.pokedex.data.api.network.model.PokemonDto
 import com.floriantrecul.pokedex.data.api.network.model.PokemonNamedApiDto
 import com.floriantrecul.pokedex.data.api.network.model.PokemonSpeciesDto
-import com.floriantrecul.pokedex.data.model.Pokemon
-import com.floriantrecul.pokedex.data.model.PokemonItem
 
 interface DomainMapper<T, DomainModel> {
 
-    fun mapToDomainModelPokemonItem(domain: PokemonNamedApiDto): PokemonItem
+    fun mapToDomainModelPokemonItem(domain: PokemonNamedApiDto): DomainModel
 
-    fun mapToDomainModelPokemon(domain: PokemonDto, secondDomain: PokemonSpeciesDto): Pokemon
+    fun mapToDomainModelPokemon(domain: PokemonDto, secondDomain: PokemonSpeciesDto): DomainModel
 
+    fun mapToDomainModelCount(count: Int): DomainModel
 }

@@ -39,4 +39,10 @@ class PokemonDtoMapper : DomainMapper<PokemonDto, Any> {
         stats = domain.stats.map { it.toPokemonStat() },
         types = domain.types.map { it.type.name.toPokemonType() }
     )
+
+    override fun mapToDomainModelCount(count: Int): Int = count
+
+    fun toDomainList(initial: List<PokemonNamedApiDto>): List<PokemonItem> {
+        return initial.map { mapToDomainModelPokemonItem(it) }
+    }
 }

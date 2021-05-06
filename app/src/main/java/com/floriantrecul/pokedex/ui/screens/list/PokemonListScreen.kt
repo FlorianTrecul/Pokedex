@@ -38,6 +38,7 @@ fun PokemonListScreen(
     pokemonDetailsScreen: (String) -> Unit
 ) {
     val pokemonListState = viewModel.pokemonListState
+
     Crossfade(targetState = pokemonListState) {
         when (pokemonListState) {
             is Empty -> {
@@ -48,13 +49,17 @@ fun PokemonListScreen(
                 color = MaterialTheme.colors.primary,
                 modifier = Modifier.scale(0.5f)
             )
-            is Success -> PokemonList(pokemons = pokemonListState.data)
+            is Success -> PokemonList(
+                pokemons = pokemonListState.data
+            )
         }
     }
 }
 
 @Composable
-fun PokemonList(pokemons: List<PokemonItemUiModel>) {
+fun PokemonList(
+    pokemons: List<PokemonItemUiModel>
+) {
     Surface(
         color = MaterialTheme.colors.background,
     ) {
@@ -82,7 +87,7 @@ fun PokemonList(pokemons: List<PokemonItemUiModel>) {
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(pokemons) { pokemon ->
-                    PokemonCard(pokemon)
+                    PokemonCard(pokemon = pokemon)
                 }
             }
         }
