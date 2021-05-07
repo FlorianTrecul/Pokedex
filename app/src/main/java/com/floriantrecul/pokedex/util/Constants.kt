@@ -8,6 +8,6 @@ object Constants {
     const val POKEMON_GAME_IMAGE_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
 
     // PokemonList
-    const val PAGE_SIZE = 1118
+    const val PAGE_SIZE = 20
 
 }
