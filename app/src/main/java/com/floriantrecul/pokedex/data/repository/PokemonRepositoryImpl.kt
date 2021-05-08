@@ -6,6 +6,7 @@ import com.floriantrecul.pokedex.data.api.network.service.PokedexService
 import com.floriantrecul.pokedex.data.model.Pokemon
 import com.floriantrecul.pokedex.data.model.PokemonItem
 import com.floriantrecul.pokedex.util.Resource
+import com.floriantrecul.pokedex.util.extension.extractPokemonId
 import javax.inject.Inject
 
 class PokemonRepositoryImpl @Inject constructor(
@@ -19,7 +20,12 @@ class PokemonRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             return Resource.Error(R.string.error_return_api)
         }
-        return Resource.Success(mapper.toDomainList(response))
+        return Resource.Success(response.map {
+            mapper.mapToDomainModelPokemonItem(
+                it,
+                pokedexService.getPokemon(it.url.extractPokemonId()),
+            )
+        })
     }
 
     override suspend fun getPokemon(pokemonId: Int): Pokemon =

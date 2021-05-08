@@ -1,28 +1,29 @@
 package com.floriantrecul.pokedex.ui.components
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CatchingPokemon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import com.floriantrecul.pokedex.ui.data.model.PokemonItemUiModel
+import com.floriantrecul.pokedex.util.extension.getMainColor
+import com.floriantrecul.pokedex.util.extension.getTypeIcon
 
 @Composable
 fun PokemonCard(pokemon: PokemonItemUiModel) {
     Card(
-        backgroundColor = Color.Black,
+        backgroundColor = colorResource(id = pokemon.types.first().getMainColor()),
         modifier = Modifier
             .fillMaxWidth()
             .shadow(5.dp, RoundedCornerShape(20.dp))
@@ -42,13 +43,17 @@ fun PokemonCard(pokemon: PokemonItemUiModel) {
                 name = pokemon.name,
                 modifier = Modifier.layoutId("pokemonName")
             )
-            Row(modifier = Modifier.layoutId("typesRow")) {
-                PokemonIcon(Icons.Filled.CatchingPokemon)
-                PokemonIcon(Icons.Filled.CatchingPokemon)
+            LazyRow(
+                modifier = Modifier.layoutId("typesRow"),
+            ) {
+                items(pokemon.types) { icon ->
+                    PokemonIcon(icon.getTypeIcon(), pokemon.name)
+                }
             }
             PokemonId(
                 id = pokemon.id,
-                modifier = Modifier.layoutId("pokemonId")
+                modifier = Modifier
+                    .layoutId("pokemonId")
             )
         }
     }

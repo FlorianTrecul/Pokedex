@@ -8,6 +8,7 @@ class PokemonItemUiMapper {
     fun mapToDomainModelPokemonItemUi(pokemonItem: PokemonItem): PokemonItemUiModel = PokemonItemUiModel(
         id = pokemonItem.id,
         name = pokemonItem.name,
-        imageUrl = pokemonItem.imageUrl
+        imageUrl = pokemonItem.imageUrl,
+        types = pokemonItem.types
     )
 }

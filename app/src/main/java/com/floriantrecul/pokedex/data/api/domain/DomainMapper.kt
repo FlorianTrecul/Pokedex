@@ -6,7 +6,7 @@ import com.floriantrecul.pokedex.data.api.network.model.PokemonSpeciesDto
 
 interface DomainMapper<T, DomainModel> {
 
-    fun mapToDomainModelPokemonItem(domain: PokemonNamedApiDto): DomainModel
+    fun mapToDomainModelPokemonItem(domain: PokemonNamedApiDto, secondDomain: PokemonDto): DomainModel
 
     fun mapToDomainModelPokemon(domain: PokemonDto, secondDomain: PokemonSpeciesDto): DomainModel
 

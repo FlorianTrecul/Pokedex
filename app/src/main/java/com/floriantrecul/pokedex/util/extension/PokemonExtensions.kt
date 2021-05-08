@@ -1,5 +1,6 @@
 package com.floriantrecul.pokedex.util.extension
 
+import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.data.api.network.model.PokemonAbilityDto
 import com.floriantrecul.pokedex.data.api.network.model.PokemonFlavorTextDto
 import com.floriantrecul.pokedex.data.api.network.model.PokemonMoveDto
@@ -31,9 +32,58 @@ fun List<PokemonFlavorTextDto>.getPokemonDescription(): String =
 
 fun PokemonSpeciesDto.getMainColor(): String = this.color.name
 
-private val pokemonIdPattern = "/\\d+/".toRegex()
-
 fun String.extractPokemonId(): Int {
-    val pokemonId = pokemonIdPattern.find(this)!!.value
-    return pokemonId.drop(1).dropLast(1).toInt()
+    return if(this.endsWith("/")) {
+        this.dropLast(1).takeLastWhile { it.isDigit() }.toInt()
+    } else {
+        this.takeLastWhile { it.isDigit() }.toInt()
+    }
+}
+
+fun PokemonType.getMainColor(): Int {
+    return when (this) {
+        PokemonType.NORMAL -> R.color.colorNormal
+        PokemonType.FIRE -> R.color.colorFire
+        PokemonType.WATER -> R.color.colorWater
+        PokemonType.ELECTRIC -> R.color.colorElectric
+        PokemonType.GRASS -> R.color.colorGrass
+        PokemonType.ICE -> R.color.colorIce
+        PokemonType.FIGHTING -> R.color.colorFighting
+        PokemonType.POISON -> R.color.colorPoison
+        PokemonType.GROUND -> R.color.colorGround
+        PokemonType.FLYING -> R.color.colorFlying
+        PokemonType.PSYCHIC -> R.color.colorPsychic
+        PokemonType.BUG -> R.color.colorBug
+        PokemonType.ROCK -> R.color.colorRock
+        PokemonType.GHOST -> R.color.colorGhost
+        PokemonType.DRAGON -> R.color.colorDragon
+        PokemonType.DARK -> R.color.colorDark
+        PokemonType.STEEL -> R.color.colorSteel
+        PokemonType.FAIRY -> R.color.colorFairy
+        PokemonType.UNKNOWN -> R.color.colorNormal
+    }
+}
+
+fun PokemonType.getTypeIcon(): Int {
+    return when (this) {
+        PokemonType.NORMAL -> R.drawable.ic_normal_type
+        PokemonType.FIRE -> R.drawable.ic_fire_type
+        PokemonType.WATER -> R.drawable.ic_water_type
+        PokemonType.ELECTRIC -> R.drawable.ic_electric_type
+        PokemonType.GRASS -> R.drawable.ic_grass_type
+        PokemonType.ICE -> R.drawable.ic_ice_type
+        PokemonType.FIGHTING -> R.drawable.ic_fight_type
+        PokemonType.POISON -> R.drawable.ic_poison_type
+        PokemonType.GROUND -> R.drawable.ic_ground_type
+        PokemonType.FLYING -> R.drawable.ic_flying_type
+        PokemonType.PSYCHIC -> R.drawable.ic_psychic_type
+        PokemonType.BUG -> R.drawable.ic_bug_type
+        PokemonType.ROCK -> R.drawable.ic_rock_type
+        PokemonType.GHOST -> R.drawable.ic_ghost_type
+        PokemonType.DRAGON -> R.drawable.ic_dragon_type
+        PokemonType.DARK -> R.drawable.ic_dark_type
+        PokemonType.STEEL -> R.drawable.ic_steel_type
+        PokemonType.FAIRY -> R.drawable.ic_fairy_type
+        PokemonType.UNKNOWN -> R.drawable.ic_normal_type
+    }
 }

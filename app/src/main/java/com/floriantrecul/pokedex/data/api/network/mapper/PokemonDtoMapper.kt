@@ -17,10 +17,11 @@ import com.floriantrecul.pokedex.util.extension.toPokemonType
 
 class PokemonDtoMapper : DomainMapper<PokemonDto, Any> {
 
-    override fun mapToDomainModelPokemonItem(domain: PokemonNamedApiDto): PokemonItem = PokemonItem(
+    override fun mapToDomainModelPokemonItem(domain: PokemonNamedApiDto, secondDomain: PokemonDto): PokemonItem = PokemonItem(
         id = domain.url.extractPokemonId(),
         name = domain.name,
         imageUrl = "$POKEMON_IMAGE_URL${domain.url.extractPokemonId()}.png",
+        types = secondDomain.types.map { it.type.name.toPokemonType() }
     )
 
     override fun mapToDomainModelPokemon(
@@ -42,7 +43,4 @@ class PokemonDtoMapper : DomainMapper<PokemonDto, Any> {
 
     override fun mapToDomainModelCount(count: Int): Int = count
 
-    fun toDomainList(initial: List<PokemonNamedApiDto>): List<PokemonItem> {
-        return initial.map { mapToDomainModelPokemonItem(it) }
-    }
 }
