@@ -21,14 +21,14 @@ import com.floriantrecul.pokedex.util.extension.getMainColor
 import com.floriantrecul.pokedex.util.extension.getTypeIcon
 
 @Composable
-fun PokemonCard(pokemon: PokemonItemUiModel) {
+fun PokemonCard(pokemon: PokemonItemUiModel, navigatePokemonDetailsScreen: (Int) -> Unit) {
     Card(
         backgroundColor = colorResource(id = pokemon.types.first().getMainColor()),
         modifier = Modifier
             .fillMaxWidth()
             .shadow(5.dp, RoundedCornerShape(20.dp))
             .clip(RoundedCornerShape(20.dp))
-            .clickable(onClick = {}),
+            .clickable(onClick = { navigatePokemonDetailsScreen(pokemon.id) }),
         elevation = 8.dp
     ) {
         ConstraintLayout(constraintSet = setupConstraints()) {

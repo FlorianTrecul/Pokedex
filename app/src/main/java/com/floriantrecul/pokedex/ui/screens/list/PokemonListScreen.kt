@@ -1,6 +1,5 @@
 package com.floriantrecul.pokedex.ui.screens.list
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,11 +25,10 @@ import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.ui.components.PokemonCard
 import com.floriantrecul.pokedex.ui.data.model.PokemonItemUiModel
 
-@SuppressLint("UnusedCrossfadeTargetStateParameter")
 @Composable
 fun PokemonListScreen(
     viewModel: PokemonListViewModel,
-    pokemonDetailsScreen: (String) -> Unit
+    navigatePokemonDetailsScreen: (Int) -> Unit
 ) {
     val pokemonList by remember { viewModel.pokemonList }
     val endReached by remember { viewModel.endReached }
@@ -61,7 +59,8 @@ fun PokemonListScreen(
             PokemonList(
                 pokemons = pokemonList,
                 endReached = endReached,
-                loadPokemons = viewModel::loadPokemons
+                loadPokemons = viewModel::loadPokemons,
+                navigatePokemonDetailsScreen = navigatePokemonDetailsScreen
             )
         }
     }
@@ -71,7 +70,8 @@ fun PokemonListScreen(
 fun PokemonList(
     pokemons: List<PokemonItemUiModel>,
     endReached: Boolean,
-    loadPokemons: () -> Unit
+    loadPokemons: () -> Unit,
+    navigatePokemonDetailsScreen: (Int) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -82,7 +82,10 @@ fun PokemonList(
             if (index == pokemons.lastIndex && !endReached) {
                 loadPokemons()
             }
-            PokemonCard(pokemon = pokemon)
+            PokemonCard(
+                pokemon = pokemon,
+                navigatePokemonDetailsScreen = navigatePokemonDetailsScreen
+            )
         }
     }
 }
