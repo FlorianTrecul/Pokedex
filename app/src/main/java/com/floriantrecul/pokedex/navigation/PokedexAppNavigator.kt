@@ -62,7 +62,8 @@ fun PokedexAppNavigator(startDestination: String = POKEMON_LIST_SCREEN) {
             )
             val pokemonId = requireNotNull(backStackEntry.arguments?.getInt("pokemonId"))
             PokemonDetailsScreen(
-                viewModel = pokemonDetailsViewModel.also { it.toInit(pokemonId) }
+                viewModel = pokemonDetailsViewModel.also { it.toInit(pokemonId) },
+                navigateBack = actions.navigateBack
             )
         }
     }

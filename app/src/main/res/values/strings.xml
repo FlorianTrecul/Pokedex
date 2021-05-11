@@ -1,10 +1,17 @@
 <resources>
     <string name="app_name">Pokedex</string>
 
+    <!-- TopAppBar -->
+    <string name="top_app_bar_back">Navigate back arrow</string>
+
+    <!-- Menu -->
+    <string name="menu_save_favorite">Save favorite</string>
+    <string name="menu_delete_favorite">Deleted favorite</string>
+
     <!-- PokemonList -->
     <string name="pokemon_list_title">Pokédex</string>
     <string name="pokemon_list_description">The Pokédex contains detailed stats for every creature from the Pokémon games.</string>
 
     <!-- Error -->
-    <string name="error_return_api">An unknown error occured.</string>
+    <string name="error_return_api">An unknown error occurred.</string>
 </resources>
