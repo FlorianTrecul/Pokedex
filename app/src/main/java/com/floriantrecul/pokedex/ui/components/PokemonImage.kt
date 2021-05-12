@@ -11,7 +11,7 @@ import dev.chrisbanes.accompanist.coil.CoilImage
 @Composable
 fun PokemonImage(
     uri: String,
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     contentDescription: String? = null
 ) {
     CoilImage(

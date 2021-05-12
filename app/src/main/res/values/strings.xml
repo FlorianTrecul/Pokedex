@@ -2,6 +2,11 @@
     <string name="app_name">Pokedex</string>
 
     <!-- TopAppBar -->
+    <string name="pokemon_detail_about_tab">About</string>
+    <string name="pokemon_detail_base_stats_tab">Base Stats</string>
+    <string name="pokemon_detail_moves_tab">Moves</string>
+
+    <!-- TabRow -->
     <string name="top_app_bar_back">Navigate back arrow</string>
 
     <!-- Menu -->

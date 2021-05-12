@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 
@@ -14,6 +15,7 @@ fun PokemonId(id: Int?, modifier: Modifier = Modifier) {
     Text(
         text = "#%03d".format(id),
         modifier = modifier,
+        textAlign = TextAlign.End,
         style = TextStyle(
             fontWeight = FontWeight.Bold,
             fontSize = 45.sp,

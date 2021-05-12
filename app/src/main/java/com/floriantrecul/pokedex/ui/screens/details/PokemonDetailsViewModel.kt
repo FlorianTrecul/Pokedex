@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.floriantrecul.pokedex.data.repository.PokemonRepository
+import com.floriantrecul.pokedex.util.PokemonDetailsTabs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -15,6 +16,7 @@ class PokemonDetailsViewModel @Inject constructor(
     private var pokemonId: Int = 0
 
     var isFavorite = mutableStateOf(false)
+    var selectedTab = mutableStateOf(PokemonDetailsTabs.About.titleRes)
 
     fun toInit(pokemonId: Int) {
         this.pokemonId = pokemonId
@@ -23,5 +25,9 @@ class PokemonDetailsViewModel @Inject constructor(
 
     fun manageFavorite() {
         isFavorite.value = !isFavorite.value
+    }
+
+    fun loadSelectedTab(tab: PokemonDetailsTabs) {
+        selectedTab.value = tab.titleRes
     }
 }
