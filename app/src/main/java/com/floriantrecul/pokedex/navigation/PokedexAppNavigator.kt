@@ -12,7 +12,7 @@ import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.floriantrecul.pokedex.navigation.Destinations.POKEMON_DETAILS_SCREEN
 import com.floriantrecul.pokedex.navigation.Destinations.POKEMON_LIST_SCREEN
-import com.floriantrecul.pokedex.ui.screens.details.PokemonDetailsScreen
+import com.floriantrecul.pokedex.ui.screens.details.PokemonDetailsStateScreen
 import com.floriantrecul.pokedex.ui.screens.details.PokemonDetailsViewModel
 import com.floriantrecul.pokedex.ui.screens.list.PokemonListScreen
 import com.floriantrecul.pokedex.ui.screens.list.PokemonListViewModel
@@ -61,7 +61,7 @@ fun PokedexAppNavigator(startDestination: String = POKEMON_LIST_SCREEN) {
                 route = "$POKEMON_DETAILS_SCREEN/{pokemonId}"
             )
             val pokemonId = requireNotNull(backStackEntry.arguments?.getInt("pokemonId"))
-            PokemonDetailsScreen(
+            PokemonDetailsStateScreen(
                 viewModel = pokemonDetailsViewModel.also { it.toInit(pokemonId) },
                 navigateBack = actions.navigateBack
             )

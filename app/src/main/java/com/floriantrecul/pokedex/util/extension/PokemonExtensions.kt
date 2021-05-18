@@ -4,7 +4,6 @@ import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.data.api.network.model.PokemonAbilityDto
 import com.floriantrecul.pokedex.data.api.network.model.PokemonFlavorTextDto
 import com.floriantrecul.pokedex.data.api.network.model.PokemonMoveDto
-import com.floriantrecul.pokedex.data.api.network.model.PokemonSpeciesDto
 import com.floriantrecul.pokedex.data.api.network.model.PokemonStatDto
 import com.floriantrecul.pokedex.data.model.PokemonAbility
 import com.floriantrecul.pokedex.data.model.PokemonMove
@@ -29,8 +28,6 @@ fun String.toPokemonType(): PokemonType =
 
 fun List<PokemonFlavorTextDto>.getPokemonDescription(): String =
     find { it.language.name == "en" }!!.flavorText
-
-fun PokemonSpeciesDto.getMainColor(): String = this.color.name
 
 fun String.extractPokemonId(): Int {
     return if(this.endsWith("/")) {

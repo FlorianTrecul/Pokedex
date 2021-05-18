@@ -8,7 +8,6 @@ import com.floriantrecul.pokedex.data.model.Pokemon
 import com.floriantrecul.pokedex.data.model.PokemonItem
 import com.floriantrecul.pokedex.util.Constants.POKEMON_IMAGE_URL
 import com.floriantrecul.pokedex.util.extension.extractPokemonId
-import com.floriantrecul.pokedex.util.extension.getMainColor
 import com.floriantrecul.pokedex.util.extension.getPokemonDescription
 import com.floriantrecul.pokedex.util.extension.toPokemonAbility
 import com.floriantrecul.pokedex.util.extension.toPokemonMove
@@ -32,7 +31,6 @@ class PokemonDtoMapper : DomainMapper<PokemonDto, Any> {
         name = domain.name,
         description = secondDomain.flavorTextEntries.getPokemonDescription(),
         imageUrl = "$POKEMON_IMAGE_URL${domain.id}.png",
-        mainColor = secondDomain.getMainColor(),
         height = domain.height,
         weight = domain.weight,
         abilities = domain.abilities.map { it.toPokemonAbility() },

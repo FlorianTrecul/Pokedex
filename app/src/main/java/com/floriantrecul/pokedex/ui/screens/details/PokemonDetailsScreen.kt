@@ -35,35 +35,70 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.ui.components.PokemonId
 import com.floriantrecul.pokedex.ui.components.PokemonImage
 import com.floriantrecul.pokedex.ui.components.PokemonName
+import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
 import com.floriantrecul.pokedex.util.PokemonDetailsTabs
+import com.floriantrecul.pokedex.util.Resource
+import com.floriantrecul.pokedex.util.extension.getMainColor
 
 @Composable
-fun PokemonDetailsScreen(
+fun PokemonDetailsStateScreen(
     viewModel: PokemonDetailsViewModel,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
 ) {
     val isFavorite by remember { viewModel.isFavorite }
     val selectedTab by remember { viewModel.selectedTab }
+
+    when (val pokemonState = viewModel.pokemonState) {
+        is Resource.Empty -> {
+        }
+        is Resource.Error -> {
+        }
+        is Resource.Loading -> {
+        }
+        is Resource.Success -> PokemonDetailsScreen(
+            navigateBack = navigateBack,
+            isFavorite = isFavorite,
+            selectedTab = selectedTab,
+            pokemon = pokemonState.data,
+            manageFavorite = viewModel::manageFavorite,
+            loadSelectedTab = viewModel::loadSelectedTab
+        )
+    }
+}
+
+@Composable
+fun PokemonDetailsScreen(
+    navigateBack: () -> Unit,
+    isFavorite: Boolean,
+    selectedTab: Int,
+    pokemon: PokemonDetailsUiModel,
+    manageFavorite: () -> Unit,
+    loadSelectedTab: (PokemonDetailsTabs) -> Unit,
+) {
 
     Scaffold(
         topBar = {
             PokemonDetailsTopBar(
                 navigateBack = navigateBack,
                 isFavorite = isFavorite,
-                manageFavorite = viewModel::manageFavorite
+                pokemon = pokemon,
+                manageFavorite = manageFavorite
             )
         },
         content = {
             PokemonDetailsBackground(
-                loadSelectedTab = viewModel::loadSelectedTab,
-                selectedTab = selectedTab
+                loadSelectedTab = loadSelectedTab,
+                selectedTab = selectedTab,
+                pokemon = pokemon
             )
         }
     )
@@ -73,7 +108,8 @@ fun PokemonDetailsScreen(
 fun PokemonDetailsTopBar(
     navigateBack: () -> Unit,
     isFavorite: Boolean,
-    manageFavorite: () -> Unit
+    pokemon: PokemonDetailsUiModel,
+    manageFavorite: () -> Unit,
 ) {
     TopAppBar(
         title = {
@@ -88,7 +124,8 @@ fun PokemonDetailsTopBar(
             IconButton(onClick = { navigateBack() }) {
                 Icon(
                     Icons.Default.ArrowBack,
-                    contentDescription = stringResource(id = R.string.top_app_bar_back)
+                    contentDescription = stringResource(id = R.string.top_app_bar_back),
+                    tint = Color.White
                 )
             }
         },
@@ -98,39 +135,48 @@ fun PokemonDetailsTopBar(
                     Icon(
                         Icons.Default.Favorite,
                         stringResource(R.string.menu_save_favorite),
-                        tint = Color.Red
+                        tint = Color.White
                     )
                 } else {
                     Icon(
                         Icons.Default.FavoriteBorder,
                         stringResource(R.string.menu_delete_favorite),
-                        tint = Color.Red
+                        tint = Color.White
                     )
                 }
             }
 
         },
         elevation = 0.dp,
-        backgroundColor = Color.Transparent
+        backgroundColor = colorResource(id = pokemon.types.first().getMainColor())
     )
 }
 
 @Composable
 fun PokemonDetailsBackground(
     loadSelectedTab: (PokemonDetailsTabs) -> Unit,
-    selectedTab: Int
+    selectedTab: Int,
+    pokemon: PokemonDetailsUiModel
 ) {
     Column(
         modifier = Modifier
             .fillMaxHeight()
-            .background(Color.Red)
+            .background(
+                colorResource(
+                    id = pokemon.types
+                        .first()
+                        .getMainColor()
+                )
+            )
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .weight(1f)
         ) {
-            PokemonDetailsBody()
+            PokemonDetailsBody(
+                pokemon = pokemon
+            )
         }
         Box(
             modifier = Modifier
@@ -148,7 +194,7 @@ fun PokemonDetailsBackground(
 }
 
 @Composable
-fun PokemonDetailsBody() {
+fun PokemonDetailsBody(pokemon: PokemonDetailsUiModel) {
     Column(modifier = Modifier.fillMaxSize()) {
         Row(
             modifier = Modifier
@@ -156,7 +202,10 @@ fun PokemonDetailsBody() {
         ) {
             Box(modifier = Modifier.weight(2f)) {
                 Column {
-                    PokemonName(name = "pokemon.name")
+                    PokemonName(
+                        name = pokemon.name,
+                        textSize = 40.sp
+                    )
                     Spacer(modifier = Modifier.height(8.dp))
                     Row {
                         Text(text = "Bonjoir")
@@ -165,7 +214,7 @@ fun PokemonDetailsBody() {
                 }
             }
             PokemonId(
-                id = 13,
+                id = pokemon.id,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
@@ -177,8 +226,8 @@ fun PokemonDetailsBody() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             PokemonImage(
-                uri = "pokemon.imageUrl",
-                modifier = Modifier.size(164.dp),
+                uri = pokemon.imageUrl,
+                modifier = Modifier.size(200.dp),
                 contentDescription = null
             )
         }
