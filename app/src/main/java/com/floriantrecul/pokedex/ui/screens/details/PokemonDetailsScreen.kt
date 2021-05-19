@@ -5,14 +5,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
@@ -41,6 +41,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.floriantrecul.pokedex.R
+import com.floriantrecul.pokedex.ui.components.PokemonIcon
 import com.floriantrecul.pokedex.ui.components.PokemonId
 import com.floriantrecul.pokedex.ui.components.PokemonImage
 import com.floriantrecul.pokedex.ui.components.PokemonName
@@ -48,6 +49,7 @@ import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
 import com.floriantrecul.pokedex.util.PokemonDetailsTabs
 import com.floriantrecul.pokedex.util.Resource
 import com.floriantrecul.pokedex.util.extension.getMainColor
+import com.floriantrecul.pokedex.util.extension.getTypeTagIcon
 
 @Composable
 fun PokemonDetailsStateScreen(
@@ -181,7 +183,7 @@ fun PokemonDetailsBackground(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .weight(2f)
+                .weight(1f)
                 .clip(shape = RoundedCornerShape(25.dp, 25.dp))
                 .background(Color.White)
         ) {
@@ -206,10 +208,15 @@ fun PokemonDetailsBody(pokemon: PokemonDetailsUiModel) {
                         name = pokemon.name,
                         textSize = 40.sp
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Row {
-                        Text(text = "Bonjoir")
-                        Text(text = "Bonjoir")
+                    LazyRow {
+                        items(pokemon.types) { icon ->
+                            PokemonIcon(
+                                icon = icon.getTypeTagIcon(),
+                                height = 100.dp,
+                                width = 100.dp,
+                                name = pokemon.name
+                            )
+                        }
                     }
                 }
             }
@@ -227,8 +234,8 @@ fun PokemonDetailsBody(pokemon: PokemonDetailsUiModel) {
         ) {
             PokemonImage(
                 uri = pokemon.imageUrl,
-                modifier = Modifier.size(200.dp),
-                contentDescription = null
+                modifier = Modifier.size(350.dp),
+                contentDescription = pokemon.name
             )
         }
     }

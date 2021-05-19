@@ -47,7 +47,10 @@ fun PokemonCard(pokemon: PokemonItemUiModel, navigatePokemonDetailsScreen: (Int)
                 modifier = Modifier.layoutId("typesRow"),
             ) {
                 items(pokemon.types) { icon ->
-                    PokemonIcon(icon.getTypeIcon(), pokemon.name)
+                    PokemonIcon(
+                        icon = icon.getTypeIcon(),
+                        name = pokemon.name
+                    )
                 }
             }
             PokemonId(

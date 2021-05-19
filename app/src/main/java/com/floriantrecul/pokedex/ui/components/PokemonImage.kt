@@ -18,7 +18,7 @@ fun PokemonImage(
         data = uri,
         modifier = modifier,
         contentDescription = contentDescription,
-        contentScale = ContentScale.Crop,
+        contentScale = ContentScale.Fit,
     ) {
         CircularProgressIndicator(
             color = MaterialTheme.colors.primary,

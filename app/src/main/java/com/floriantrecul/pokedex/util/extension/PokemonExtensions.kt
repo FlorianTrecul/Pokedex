@@ -84,3 +84,27 @@ fun PokemonType.getTypeIcon(): Int {
         PokemonType.UNKNOWN -> R.drawable.ic_normal_type
     }
 }
+
+fun PokemonType.getTypeTagIcon(): Int {
+    return when (this) {
+        PokemonType.NORMAL -> R.drawable.ic_tag_normal_type
+        PokemonType.FIRE -> R.drawable.ic_tag_fire_type
+        PokemonType.WATER -> R.drawable.ic_tag_water_type
+        PokemonType.ELECTRIC -> R.drawable.ic_tag_electric_type
+        PokemonType.GRASS -> R.drawable.ic_tag_grass_type
+        PokemonType.ICE -> R.drawable.ic_tag_ice_type
+        PokemonType.FIGHTING -> R.drawable.ic_tag_fight_type
+        PokemonType.POISON -> R.drawable.ic_tag_poison_type
+        PokemonType.GROUND -> R.drawable.ic_tag_ground_type
+        PokemonType.FLYING -> R.drawable.ic_tag_flying_type
+        PokemonType.PSYCHIC -> R.drawable.ic_tag_psychic_type
+        PokemonType.BUG -> R.drawable.ic_tag_bug_type
+        PokemonType.ROCK -> R.drawable.ic_tag_rock_type
+        PokemonType.GHOST -> R.drawable.ic_tag_ghost_type
+        PokemonType.DRAGON -> R.drawable.ic_tag_dragon_type
+        PokemonType.DARK -> R.drawable.ic_tag_dark_type
+        PokemonType.STEEL -> R.drawable.ic_tag_steel_type
+        PokemonType.FAIRY -> R.drawable.ic_tag_fairy_type
+        PokemonType.UNKNOWN -> R.drawable.ic_tag_normal_type
+    }
+}
