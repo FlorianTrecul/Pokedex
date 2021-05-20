@@ -9,6 +9,13 @@
     <!-- TabRow -->
     <string name="top_app_bar_back">Navigate back arrow</string>
 
+    <!-- Tab -->
+    <string name="tab_about_title_description">Description</string>
+    <string name="tab_about_title_various">Various</string>
+    <string name="tab_about_label_height">Height</string>
+    <string name="tab_about_label_weight">Weight</string>
+    <string name="tab_about_label_abilities">Abilities</string>
+
     <!-- Menu -->
     <string name="menu_save_favorite">Save favorite</string>
     <string name="menu_delete_favorite">Deleted favorite</string>

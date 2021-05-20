@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
@@ -37,6 +39,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,12 +47,16 @@ import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.ui.components.PokemonIcon
 import com.floriantrecul.pokedex.ui.components.PokemonId
 import com.floriantrecul.pokedex.ui.components.PokemonImage
+import com.floriantrecul.pokedex.ui.components.PokemonInfoLabel
+import com.floriantrecul.pokedex.ui.components.PokemonInfoText
+import com.floriantrecul.pokedex.ui.components.PokemonInfoTitle
 import com.floriantrecul.pokedex.ui.components.PokemonName
 import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
 import com.floriantrecul.pokedex.util.PokemonDetailsTabs
 import com.floriantrecul.pokedex.util.Resource
 import com.floriantrecul.pokedex.util.extension.getMainColor
 import com.floriantrecul.pokedex.util.extension.getTypeTagIcon
+import java.util.*
 
 @Composable
 fun PokemonDetailsStateScreen(
@@ -189,7 +196,8 @@ fun PokemonDetailsBackground(
         ) {
             PokemonDetailsInformationTabs(
                 loadSelectedTab = loadSelectedTab,
-                selectedTab = selectedTab
+                selectedTab = selectedTab,
+                pokemon = pokemon
             )
         }
     }
@@ -244,7 +252,8 @@ fun PokemonDetailsBody(pokemon: PokemonDetailsUiModel) {
 @Composable
 fun PokemonDetailsInformationTabs(
     loadSelectedTab: (PokemonDetailsTabs) -> Unit,
-    selectedTab: Int
+    selectedTab: Int,
+    pokemon: PokemonDetailsUiModel
 ) {
     val (isSelectedTab) = remember { mutableStateOf(PokemonDetailsTabs.About) }
     val tabs = PokemonDetailsTabs.values()
@@ -277,23 +286,77 @@ fun PokemonDetailsInformationTabs(
                 }
             }
         }
-        SelectedPokemonInformationTab(selectedTab)
+        SelectedPokemonInformationTab(selectedTab, pokemon)
 
     }
 }
 
 @Composable
-fun SelectedPokemonInformationTab(selectedTab: Int) {
+fun SelectedPokemonInformationTab(selectedTab: Int, pokemon: PokemonDetailsUiModel) {
     when (selectedTab) {
-        R.string.pokemon_detail_about_tab -> About()
+        R.string.pokemon_detail_about_tab -> About(pokemon)
         R.string.pokemon_detail_base_stats_tab -> BaseStats()
         R.string.pokemon_detail_moves_tab -> Moves()
     }
 }
 
 @Composable
-fun About() {
-    Text(text = "About")
+fun About(pokemon: PokemonDetailsUiModel) {
+
+    val labels: List<Int> =
+        listOf(
+            R.string.tab_about_label_height,
+            R.string.tab_about_label_weight,
+            R.string.tab_about_label_abilities
+        )
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Column {
+            PokemonInfoTitle(title = R.string.tab_about_title_description)
+            Text(
+                text = pokemon.description.replace("\n", " "),
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    color = Color.Black.copy(0.7f),
+                ),
+            )
+            PokemonInfoTitle(title = R.string.tab_about_title_various)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(3f)
+            ) {
+                LazyColumn(
+                    modifier = Modifier
+                        .weight(1f)
+                ) {
+                    items(labels) { label ->
+                        PokemonInfoLabel(label = label)
+                    }
+                }
+                Column(
+                    modifier = Modifier
+                        .weight(2f)
+                ) {
+                    PokemonInfoText(text = pokemon.height.toString())
+                    PokemonInfoText(text = pokemon.weight.toString())
+                    LazyRow() {
+                        itemsIndexed(pokemon.abilities) { index, ability ->
+                            if (index == pokemon.abilities.lastIndex) {
+                                PokemonInfoText(text = ability.name.capitalize(Locale.ROOT))
+                            } else {
+                                PokemonInfoText(text = "${ability.name.capitalize(Locale.ROOT)}, ")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 @Composable
