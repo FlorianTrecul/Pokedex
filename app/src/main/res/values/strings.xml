@@ -16,12 +16,6 @@
     <string name="tab_about_label_weight">Weight</string>
     <string name="tab_about_label_abilities">Abilities</string>
 
-    <string-array name="array_about_label">
-        <item>Height !</item>
-        <item>Weight</item>
-        <item>Abilities</item>
-    </string-array>
-
     <!-- Menu -->
     <string name="menu_save_favorite">Save favorite</string>
     <string name="menu_delete_favorite">Deleted favorite</string>
