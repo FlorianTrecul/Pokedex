@@ -30,7 +30,7 @@ fun List<PokemonFlavorTextDto>.getPokemonDescription(): String =
     find { it.language.name == "en" }!!.flavorText
 
 fun String.extractPokemonId(): Int {
-    return if(this.endsWith("/")) {
+    return if (this.endsWith("/")) {
         this.dropLast(1).takeLastWhile { it.isDigit() }.toInt()
     } else {
         this.takeLastWhile { it.isDigit() }.toInt()
@@ -106,5 +106,29 @@ fun PokemonType.getTypeTagIcon(): Int {
         PokemonType.STEEL -> R.drawable.ic_tag_steel_type
         PokemonType.FAIRY -> R.drawable.ic_tag_fairy_type
         PokemonType.UNKNOWN -> R.drawable.ic_tag_normal_type
+    }
+}
+
+fun String.toBaseStatResId(): Int = when (this) {
+    "hp" -> R.string.tab_base_stats_label_hp
+    "attack" -> R.string.tab_base_stats_label_attack
+    "defense" -> R.string.tab_base_stats_label_defense
+    "special-attack" -> R.string.tab_base_stats_label_sp_attack
+    "special-defense" -> R.string.tab_base_stats_label_sp_defense
+    "speed" -> R.string.tab_base_stats_label_speed
+    else -> R.string.error_generic
+}
+
+fun Int.getStatColor(): Int {
+    return when {
+        this >= 100 -> {
+            R.color.colorStatMaximum
+        }
+        this in 99 downTo 60 -> {
+            R.color.colorStatMedium
+        }
+        else -> {
+            R.color.colorStatMinimum
+        }
     }
 }

@@ -28,7 +28,7 @@ fun PokemonInfoTitle(title: Int) {
 fun PokemonInfoLabel(label: Int, modifier: Modifier = Modifier) {
     Text(
         text = stringResource(label),
-        modifier = modifier.padding(top = 8.dp)
+        modifier = modifier
     )
 }
 
@@ -36,7 +36,7 @@ fun PokemonInfoLabel(label: Int, modifier: Modifier = Modifier) {
 fun PokemonInfoText(text: String, modifier: Modifier = Modifier) {
     Text(
         text = text,
-        modifier = modifier.padding(top = 8.dp),
-        color = Color.Black
+        color = Color.Black,
+        modifier = modifier
     )
 }

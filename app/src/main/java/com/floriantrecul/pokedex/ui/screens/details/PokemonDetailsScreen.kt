@@ -291,7 +291,7 @@ fun PokemonDetailsInformationTabs(
 fun SelectedPokemonInformationTab(selectedTab: Int, pokemon: PokemonDetailsUiModel) {
     when (selectedTab) {
         R.string.pokemon_detail_about_tab -> AboutTab(pokemon)
-        R.string.pokemon_detail_base_stats_tab -> BaseStatsTab()
+        R.string.pokemon_detail_base_stats_tab -> BaseStatsTab(pokemon)
         R.string.pokemon_detail_moves_tab -> MovesTab(pokemon)
     }
 }

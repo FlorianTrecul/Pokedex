@@ -10,4 +10,9 @@ object Constants {
     // PokemonList
     const val PAGE_SIZE = 20
 
+    // BaseStatsTabs
+    const val STAT_MAX_VALUE = 155f
+    const val ANIMATION_DURATION = 1000
+    const val ANIMATION_DELAY = 0
+
 }

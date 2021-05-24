@@ -25,4 +25,7 @@
     <color name="colorDark">#705746</color>
     <color name="colorSteel">#B7B7CE</color>
     <color name="colorFairy">#D685AD</color>
+    <color name="colorStatMaximum">#66FF00</color>
+    <color name="colorStatMedium">#FBB105</color>
+    <color name="colorStatMinimum">#FB3201</color>
 </resources>

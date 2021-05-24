@@ -15,6 +15,13 @@
     <string name="tab_about_label_height">Height</string>
     <string name="tab_about_label_weight">Weight</string>
     <string name="tab_about_label_abilities">Abilities</string>
+    <string name="tab_base_stats_label_hp">HP</string>
+    <string name="tab_base_stats_label_attack">Attack</string>
+    <string name="tab_base_stats_label_defense">Defense</string>
+    <string name="tab_base_stats_label_sp_attack">Sp. Atk</string>
+    <string name="tab_base_stats_label_sp_defense">Sp. Def</string>
+    <string name="tab_base_stats_label_speed">Speed</string>
+    <string name="tab_base_stats_label_total">Total</string>
 
     <!-- Menu -->
     <string name="menu_save_favorite">Save favorite</string>
@@ -26,4 +33,5 @@
 
     <!-- Error -->
     <string name="error_return_api">An unknown error occurred.</string>
+    <string name="error_generic">Error.</string>
 </resources>
