@@ -17,7 +17,8 @@ fun PokemonIcon(icon: Int, height: Dp = 38.dp, width: Dp = 38.dp, name: String) 
         modifier = Modifier
             .height(height)
             .width(width),
-        contentScale = ContentScale.Inside
+        contentScale = ContentScale.Inside,
+        fadeIn = true
     ) {
         CircularProgressLoader()
     }

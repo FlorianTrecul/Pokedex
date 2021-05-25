@@ -16,6 +16,7 @@ fun PokemonImage(
         modifier = modifier,
         contentDescription = contentDescription,
         contentScale = ContentScale.Fit,
+        fadeIn = true
     ) {
         CircularProgressLoader()
     }

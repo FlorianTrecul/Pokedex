@@ -13,7 +13,6 @@ import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
 
 @Composable
 fun BaseStatsTab(pokemon: PokemonDetailsUiModel) {
-
     Box(
         modifier = Modifier
             .fillMaxSize()
