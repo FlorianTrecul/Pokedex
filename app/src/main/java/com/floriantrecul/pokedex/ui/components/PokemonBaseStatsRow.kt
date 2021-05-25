@@ -8,25 +8,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.floriantrecul.pokedex.data.model.PokemonStat
+import com.floriantrecul.pokedex.ui.data.model.PokemonBaseStatsUiModel
 import com.floriantrecul.pokedex.util.extension.toBaseStatResId
 
 @Composable
-fun PokemonBaseStatsRow(pokemonStat: PokemonStat, modifier: Modifier = Modifier) {
+fun PokemonBaseStatsRow(pokemonBaseStatsUiModel: PokemonBaseStatsUiModel, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier.padding(top = 8.dp, bottom = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         PokemonInfoLabel(
-            label = pokemonStat.name.toBaseStatResId(),
+            label = pokemonBaseStatsUiModel.name.toBaseStatResId(),
             modifier = Modifier.weight(.15f)
         )
         Spacer(modifier = Modifier.width(4.dp))
         PokemonInfoText(
-            text = pokemonStat.value.toString(),
+            text = pokemonBaseStatsUiModel.value.toString(),
             modifier = Modifier.weight(.1f)
         )
         Spacer(modifier = Modifier.width(4.dp))
-        PokemonBaseStatsBar(pokemonStat = pokemonStat, modifier = Modifier.weight(.35f))
+        PokemonBaseStatsBar(pokemonBaseStatsUiModel = pokemonBaseStatsUiModel, modifier = Modifier.weight(.35f))
     }
 }

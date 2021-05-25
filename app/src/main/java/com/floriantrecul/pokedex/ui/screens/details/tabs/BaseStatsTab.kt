@@ -20,7 +20,7 @@ fun BaseStatsTab(pokemon: PokemonDetailsUiModel) {
     ) {
         LazyColumn {
             items(pokemon.stats) { stat ->
-                PokemonBaseStatsRow(pokemonStat = stat)
+                PokemonBaseStatsRow(pokemonBaseStatsUiModel = stat)
             }
         }
 

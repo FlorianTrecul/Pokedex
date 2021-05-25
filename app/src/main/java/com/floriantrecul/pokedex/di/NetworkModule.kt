@@ -1,9 +1,6 @@
 package com.floriantrecul.pokedex.di
 
-import com.floriantrecul.pokedex.data.api.network.mapper.PokemonDtoMapper
 import com.floriantrecul.pokedex.data.api.network.service.PokedexService
-import com.floriantrecul.pokedex.ui.data.mapper.PokemonDetailsUiMapper
-import com.floriantrecul.pokedex.ui.data.mapper.PokemonItemUiMapper
 import com.floriantrecul.pokedex.util.Constants.BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -20,18 +17,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
-    @Singleton
-    @Provides
-    fun providePokemonDtoMapper(): PokemonDtoMapper = PokemonDtoMapper()
-
-    @Singleton
-    @Provides
-    fun providePokemonUiMapper(): PokemonItemUiMapper = PokemonItemUiMapper()
-
-    @Singleton
-    @Provides
-    fun providePokemonDetailsUiMapper(): PokemonDetailsUiMapper = PokemonDetailsUiMapper()
 
     @Singleton
     @Provides

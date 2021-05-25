@@ -3,7 +3,7 @@ package com.floriantrecul.pokedex.ui.data.mapper
 import com.floriantrecul.pokedex.data.model.Pokemon
 import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
 
-class PokemonDetailsUiMapper {
+class PokemonDetailsUiMapper(private val pokemonBaseStatsUiMapper: PokemonBaseStatsUiMapper) {
 
     fun mapToDomainModelPokemonDetailUi(pokemon: Pokemon): PokemonDetailsUiModel = PokemonDetailsUiModel(
         id = pokemon.id,
@@ -14,8 +14,7 @@ class PokemonDetailsUiMapper {
         weight = pokemon.weight,
         abilities = pokemon.abilities,
         moves = pokemon.moves,
-        stats = pokemon.stats,
+        stats = pokemon.stats.map { pokemonBaseStatsUiMapper.mapToDomainModelPokemonBaseStatsUi(it) },
         types = pokemon.types
     )
-
 }
