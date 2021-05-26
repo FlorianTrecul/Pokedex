@@ -1,6 +1,7 @@
 package com.floriantrecul.pokedex.di
 
 import com.floriantrecul.pokedex.data.api.network.mapper.PokemonDtoMapper
+import com.floriantrecul.pokedex.ui.data.mapper.PokemonAboutUiMapper
 import com.floriantrecul.pokedex.ui.data.mapper.PokemonBaseStatsUiMapper
 import com.floriantrecul.pokedex.ui.data.mapper.PokemonDetailsUiMapper
 import com.floriantrecul.pokedex.ui.data.mapper.PokemonItemUiMapper
@@ -26,10 +27,15 @@ object MapperModule {
     @Singleton
     @Provides
     fun providePokemonDetailsUiMapper(
+        pokemonAboutUiMapper: PokemonAboutUiMapper,
         pokemonMovesUiMapper: PokemonMovesUiMapper,
         pokemonBaseStatsUiMapper: PokemonBaseStatsUiMapper
     ): PokemonDetailsUiMapper =
-        PokemonDetailsUiMapper(pokemonMovesUiMapper, pokemonBaseStatsUiMapper)
+        PokemonDetailsUiMapper(pokemonAboutUiMapper, pokemonMovesUiMapper, pokemonBaseStatsUiMapper)
+
+    @Singleton
+    @Provides
+    fun providePokemonBaseAboutMapper(): PokemonAboutUiMapper = PokemonAboutUiMapper()
 
     @Singleton
     @Provides

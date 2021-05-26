@@ -36,8 +36,10 @@ fun AboutTab(pokemon: PokemonDetailsUiModel) {
             R.string.tab_about_label_abilities
         )
 
-    val pokemonHeightInMeters = remember { round(pokemon.height * 100f) / 1000f }
-    val pokemonWeightInKg = remember { round(pokemon.weight * 100f) / 1000f }
+    val pokemonAbout = pokemon.pokemonAbout
+
+    val pokemonHeightInMeters = remember { round(pokemonAbout.height * 100f) / 1000f }
+    val pokemonWeightInKg = remember { round(pokemonAbout.weight * 100f) / 1000f }
 
     Box(
         modifier = Modifier
@@ -47,7 +49,7 @@ fun AboutTab(pokemon: PokemonDetailsUiModel) {
         Column {
             PokemonInfoTitle(title = R.string.tab_about_title_description)
             Text(
-                text = pokemon.description.replace("\n", " "),
+                text = pokemonAbout.description.replace("\n", " "),
                 style = TextStyle(
                     fontSize = 16.sp,
                     color = Color.Black.copy(0.7f),
@@ -73,8 +75,8 @@ fun AboutTab(pokemon: PokemonDetailsUiModel) {
                         modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
                     )
                     LazyRow(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)) {
-                        itemsIndexed(pokemon.abilities) { index, ability ->
-                            if (index == pokemon.abilities.lastIndex) {
+                        itemsIndexed(pokemonAbout.abilities) { index, ability ->
+                            if (index == pokemonAbout.abilities.lastIndex) {
                                 PokemonInfoText(text = ability.name.capitalize(Locale.ROOT))
                             } else {
                                 PokemonInfoText(text = "${ability.name.capitalize(Locale.ROOT)}, ")
