@@ -22,12 +22,12 @@ import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.ui.components.PokemonInfoLabel
 import com.floriantrecul.pokedex.ui.components.PokemonInfoText
 import com.floriantrecul.pokedex.ui.components.PokemonInfoTitle
-import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
+import com.floriantrecul.pokedex.ui.data.model.PokemonAboutUiModel
 import java.util.*
 import kotlin.math.round
 
 @Composable
-fun AboutTab(pokemon: PokemonDetailsUiModel) {
+fun AboutTab(pokemonAbout: PokemonAboutUiModel) {
 
     val labels: List<Int> =
         listOf(
@@ -35,8 +35,6 @@ fun AboutTab(pokemon: PokemonDetailsUiModel) {
             R.string.tab_about_label_weight,
             R.string.tab_about_label_abilities
         )
-
-    val pokemonAbout = pokemon.pokemonAbout
 
     val pokemonHeightInMeters = remember { round(pokemonAbout.height * 100f) / 1000f }
     val pokemonWeightInKg = remember { round(pokemonAbout.weight * 100f) / 1000f }

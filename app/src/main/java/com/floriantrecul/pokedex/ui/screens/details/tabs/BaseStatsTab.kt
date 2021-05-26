@@ -9,17 +9,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.floriantrecul.pokedex.ui.components.PokemonBaseStatsRow
-import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
+import com.floriantrecul.pokedex.ui.data.model.PokemonBaseStatsUiModel
 
 @Composable
-fun BaseStatsTab(pokemon: PokemonDetailsUiModel) {
+fun BaseStatsTab(stats: List<PokemonBaseStatsUiModel>) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
         LazyColumn {
-            items(pokemon.stats) { stat ->
+            items(stats) { stat ->
                 PokemonBaseStatsRow(pokemonBaseStatsUiModel = stat)
             }
         }

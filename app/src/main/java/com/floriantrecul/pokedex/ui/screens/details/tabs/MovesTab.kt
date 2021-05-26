@@ -14,25 +14,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.floriantrecul.pokedex.ui.components.PokemonInfoText
-import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
 import com.floriantrecul.pokedex.ui.data.model.PokemonMovesUiModel
 import java.util.*
 
 @Composable
-fun MovesTab(pokemon: PokemonDetailsUiModel) {
+fun MovesTab(moves: List<PokemonMovesUiModel>) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
         LazyColumn(contentPadding = PaddingValues(16.dp)) {
-            val itemCount = if (pokemon.moves.size % 2 == 0) {
-                pokemon.moves.size / 2
+            val itemCount = if (moves.size % 2 == 0) {
+                moves.size / 2
             } else {
-                pokemon.moves.size / 2 + 1
+                moves.size / 2 + 1
             }
             items(itemCount) {
-                MoveRow(rowIndex = it, moves = pokemon.moves)
+                MoveRow(rowIndex = it, moves = moves)
             }
         }
     }
