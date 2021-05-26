@@ -13,9 +13,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.floriantrecul.pokedex.data.model.PokemonMove
 import com.floriantrecul.pokedex.ui.components.PokemonInfoText
 import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
+import com.floriantrecul.pokedex.ui.data.model.PokemonMovesUiModel
 import java.util.*
 
 @Composable
@@ -41,7 +41,7 @@ fun MovesTab(pokemon: PokemonDetailsUiModel) {
 @Composable
 fun MoveRow(
     rowIndex: Int,
-    moves: List<PokemonMove>
+    moves: List<PokemonMovesUiModel>
 ) {
     Column {
         Row {

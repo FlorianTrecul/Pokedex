@@ -4,6 +4,7 @@ import com.floriantrecul.pokedex.data.api.network.mapper.PokemonDtoMapper
 import com.floriantrecul.pokedex.ui.data.mapper.PokemonBaseStatsUiMapper
 import com.floriantrecul.pokedex.ui.data.mapper.PokemonDetailsUiMapper
 import com.floriantrecul.pokedex.ui.data.mapper.PokemonItemUiMapper
+import com.floriantrecul.pokedex.ui.data.mapper.PokemonMovesUiMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,10 +25,17 @@ object MapperModule {
 
     @Singleton
     @Provides
-    fun providePokemonDetailsUiMapper(pokemonBaseStatsUiMapper: PokemonBaseStatsUiMapper): PokemonDetailsUiMapper =
-        PokemonDetailsUiMapper(pokemonBaseStatsUiMapper)
+    fun providePokemonDetailsUiMapper(
+        pokemonMovesUiMapper: PokemonMovesUiMapper,
+        pokemonBaseStatsUiMapper: PokemonBaseStatsUiMapper
+    ): PokemonDetailsUiMapper =
+        PokemonDetailsUiMapper(pokemonMovesUiMapper, pokemonBaseStatsUiMapper)
 
     @Singleton
     @Provides
     fun providePokemonBaseStatsUiMapper(): PokemonBaseStatsUiMapper = PokemonBaseStatsUiMapper()
+
+    @Singleton
+    @Provides
+    fun providePokemonMovesUiMapper(): PokemonMovesUiMapper = PokemonMovesUiMapper()
 }
