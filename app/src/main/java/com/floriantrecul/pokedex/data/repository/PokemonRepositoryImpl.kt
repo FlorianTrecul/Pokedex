@@ -28,16 +28,11 @@ class PokemonRepositoryImpl @Inject constructor(
         })
     }
 
-    override suspend fun getPokemon(pokemonId: Int): Resource<Pokemon> {
-        val response = try {
-            mapper.mapToDomainModelPokemon(
-                pokedexService.getPokemon(pokemonId),
-                pokedexService.getPokemonSpecies(pokemonId)
-            )
-        } catch (e: Exception) {
-            return Resource.Error(R.string.error_return_api)
-        }
-        return Resource.Success(response)
+    override suspend fun getPokemon(pokemonId: Int): Pokemon {
+        return mapper.mapToDomainModelPokemon(
+            pokedexService.getPokemon(pokemonId),
+            pokedexService.getPokemonSpecies(pokemonId)
+        )
     }
 
     override suspend fun getCount(limit: Int, offset: Int): Int =

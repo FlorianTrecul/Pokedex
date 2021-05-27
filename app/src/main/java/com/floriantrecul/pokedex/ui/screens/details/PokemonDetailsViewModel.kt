@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.data.repository.PokemonRepository
 import com.floriantrecul.pokedex.ui.data.mapper.PokemonDetailsUiMapper
 import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
@@ -21,11 +22,10 @@ class PokemonDetailsViewModel @Inject constructor(
 
     private var pokemonId: Int = 0
 
-    var loadError = mutableStateOf(0)
     var isFavorite = mutableStateOf(false)
     var selectedTab = mutableStateOf(PokemonDetailsTabs.About.titleRes)
 
-    private val pokemonMutableState = mutableStateOf<Resource<PokemonDetailsUiModel>>(Resource.Empty())
+    private val pokemonMutableState = mutableStateOf<Resource<PokemonDetailsUiModel>>(Resource.Empty)
     val pokemonState: Resource<PokemonDetailsUiModel> by pokemonMutableState
 
     fun toInit(pokemonId: Int) {
@@ -34,17 +34,14 @@ class PokemonDetailsViewModel @Inject constructor(
     }
 
     private fun loadPokemon(pokemonId: Int) {
+        pokemonMutableState.value = Resource.Loading
         viewModelScope.launch {
-            when (val result = pokemonRepository.getPokemon(pokemonId)) {
-                is Resource.Empty -> {}
-                is Resource.Loading -> {}
-                is Resource.Error -> {
-                    loadError.value = result.message!!
-                }
-                is Resource.Success -> {
-                    val pokemonDetailsUi = pokemonDetailsUiMapper.mapToDomainModelPokemonDetailUi(result.data)
-                    pokemonMutableState.value = Resource.Success(pokemonDetailsUi)
-                }
+            try {
+                val pokemon = pokemonRepository.getPokemon(pokemonId)
+                val pokemonDetailsUi = pokemonDetailsUiMapper.mapToDomainModelPokemonDetailUi(pokemon)
+                pokemonMutableState.value = Resource.Success(pokemonDetailsUi)
+            } catch (e: Exception) {
+                pokemonMutableState.value = Resource.Error(R.string.error_generic)
             }
         }
     }

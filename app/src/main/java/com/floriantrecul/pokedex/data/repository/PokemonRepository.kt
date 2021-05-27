@@ -8,7 +8,7 @@ interface PokemonRepository {
 
     suspend fun getPokemons(limit: Int, offset: Int): Resource<List<PokemonItem>>
 
-    suspend fun getPokemon(pokemonId: Int): Resource<Pokemon>
+    suspend fun getPokemon(pokemonId: Int): Pokemon
 
     suspend fun getCount(limit: Int, offset: Int): Int
 }

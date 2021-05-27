@@ -45,6 +45,7 @@ import com.floriantrecul.pokedex.ui.components.PokemonIcon
 import com.floriantrecul.pokedex.ui.components.PokemonId
 import com.floriantrecul.pokedex.ui.components.PokemonImage
 import com.floriantrecul.pokedex.ui.components.PokemonName
+import com.floriantrecul.pokedex.ui.components.PokemonProgressLoader
 import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
 import com.floriantrecul.pokedex.ui.screens.details.tabs.AboutTab
 import com.floriantrecul.pokedex.ui.screens.details.tabs.BaseStatsTab
@@ -63,12 +64,9 @@ fun PokemonDetailsStateScreen(
     val selectedTab by remember { viewModel.selectedTab }
 
     when (val pokemonState = viewModel.pokemonState) {
-        is Resource.Empty -> {
-        }
-        is Resource.Error -> {
-        }
-        is Resource.Loading -> {
-        }
+        is Resource.Empty -> {}
+        is Resource.Error -> {}
+        is Resource.Loading -> PokemonProgressLoader()
         is Resource.Success -> PokemonDetailsScreen(
             navigateBack = navigateBack,
             isFavorite = isFavorite,
