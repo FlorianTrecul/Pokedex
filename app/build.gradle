@@ -54,6 +54,9 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
 
+    // Accompanist
+    implementation "com.google.accompanist:accompanist-coil:$accompanistCoilVersion"
+
     // Activity Compose
     implementation "androidx.activity:activity-compose:$activityComposeVersion"
 
@@ -80,9 +83,6 @@ dependencies {
 
     // ==============================================================
     // Party libraries sorted by product name in alphabetical order
-
-    // Accompanist
-    implementation "dev.chrisbanes.accompanist:accompanist-coil:$accompanistCoilVersion"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
