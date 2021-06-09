@@ -1,25 +1,19 @@
 package com.floriantrecul.pokedex.ui.components
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun PokemonInfoTitle(title: Int) {
     Text(
         text = stringResource(title),
-        style = TextStyle(
-            fontWeight = FontWeight.Bold,
-            fontSize = 24.sp,
-            color = Color.Black,
-        ),
+        style = MaterialTheme.typography.subtitle1,
+        color = MaterialTheme.colors.onSurface,
         modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)
     )
 }
@@ -28,7 +22,8 @@ fun PokemonInfoTitle(title: Int) {
 fun PokemonInfoLabel(label: Int, modifier: Modifier = Modifier) {
     Text(
         text = stringResource(label),
-        modifier = modifier
+        modifier = modifier,
+        color = MaterialTheme.colors.onSurface
     )
 }
 
@@ -36,7 +31,8 @@ fun PokemonInfoLabel(label: Int, modifier: Modifier = Modifier) {
 fun PokemonInfoText(text: String, modifier: Modifier = Modifier) {
     Text(
         text = text,
-        color = Color.Black,
-        modifier = modifier
+        color = MaterialTheme.colors.onSurface,
+        modifier = modifier,
+        style = MaterialTheme.typography.body1,
     )
 }

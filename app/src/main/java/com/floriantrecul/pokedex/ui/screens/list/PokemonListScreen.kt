@@ -51,12 +51,14 @@ fun PokemonListScreen(
                 modifier = Modifier.padding(8.dp),
                 color = Color.Red,
                 fontSize = 30.sp,
+                style = MaterialTheme.typography.h3,
                 fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = stringResource(R.string.pokemon_list_description),
                 modifier = Modifier.padding(8.dp),
+                style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onPrimary,
                 fontWeight = FontWeight.Bold
             )

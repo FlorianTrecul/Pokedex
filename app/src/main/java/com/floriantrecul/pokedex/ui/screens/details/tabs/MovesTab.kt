@@ -1,13 +1,10 @@
 package com.floriantrecul.pokedex.ui.screens.details.tabs
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
@@ -19,20 +16,14 @@ import java.util.*
 
 @Composable
 fun MovesTab(moves: List<PokemonMovesUiModel>) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        LazyColumn(contentPadding = PaddingValues(16.dp)) {
-            val itemCount = if (moves.size % 2 == 0) {
-                moves.size / 2
-            } else {
-                moves.size / 2 + 1
-            }
-            items(itemCount) {
-                MoveRow(rowIndex = it, moves = moves)
-            }
+    LazyColumn(contentPadding = PaddingValues(16.dp)) {
+        val itemCount = if (moves.size % 2 == 0) {
+            moves.size / 2
+        } else {
+            moves.size / 2 + 1
+        }
+        items(itemCount) {
+            MoveRow(rowIndex = it, moves = moves)
         }
     }
 }

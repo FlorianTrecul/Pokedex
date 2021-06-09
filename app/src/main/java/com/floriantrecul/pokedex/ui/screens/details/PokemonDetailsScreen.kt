@@ -39,7 +39,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.ui.components.PokemonIcon
 import com.floriantrecul.pokedex.ui.components.PokemonId
@@ -186,7 +185,7 @@ fun PokemonDetailsBackground(
                 .fillMaxSize()
                 .weight(1f)
                 .clip(shape = RoundedCornerShape(25.dp, 25.dp))
-                .background(Color.White)
+                .background(MaterialTheme.colors.background)
         ) {
             PokemonDetailsInformationTabs(
                 loadSelectedTab = loadSelectedTab,
@@ -208,7 +207,7 @@ fun PokemonDetailsBody(pokemon: PokemonDetailsUiModel) {
                 Column {
                     PokemonName(
                         name = pokemon.name,
-                        textSize = 40.sp
+                        style = MaterialTheme.typography.h2,
                     )
                     LazyRow {
                         items(pokemon.types) { icon ->
@@ -287,9 +286,15 @@ fun PokemonDetailsInformationTabs(
 
 @Composable
 fun SelectedPokemonInformationTab(selectedTab: Int, pokemon: PokemonDetailsUiModel) {
-    when (selectedTab) {
-        R.string.pokemon_detail_about_tab -> AboutTab(pokemon.pokemonAbout)
-        R.string.pokemon_detail_base_stats_tab -> BaseStatsTab(pokemon.stats)
-        R.string.pokemon_detail_moves_tab -> MovesTab(pokemon.moves)
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        when (selectedTab) {
+            R.string.pokemon_detail_about_tab -> AboutTab(pokemon.pokemonAbout)
+            R.string.pokemon_detail_base_stats_tab -> BaseStatsTab(pokemon.stats)
+            R.string.pokemon_detail_moves_tab -> MovesTab(pokemon.moves)
+        }
     }
 }
