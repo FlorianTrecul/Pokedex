@@ -1,6 +1,5 @@
 package com.floriantrecul.pokedex.ui.screens.list
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -44,7 +43,6 @@ class PokemonListViewModel @Inject constructor(
                     val count = pokemonRepository.getCount(PAGE_SIZE, currentPage * PAGE_SIZE)
                     endReached.value = currentPage * PAGE_SIZE >= count
                     val pokemonsItemUi = result.data.map { pokemonItemUiMapper.mapToDomainModelPokemonItemUi(it) }
-                    Log.d("TAGpokemonsItemUi", "${pokemonsItemUi[0]}")
                     currentPage++
                     loadError.value = 0
                     isLoading.value = false

@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.ui.components.CircularProgressLoader
 import com.floriantrecul.pokedex.ui.components.PokemonCard
+import com.floriantrecul.pokedex.ui.components.PokemonRetryButton
 import com.floriantrecul.pokedex.ui.data.model.PokemonItemUiModel
 
 @Composable
@@ -68,6 +69,7 @@ fun PokemonListScreen(
                 endReached = endReached,
                 isLoading = isLoading,
                 loadPokemons = viewModel::loadPokemons,
+                loadError = loadError,
                 navigatePokemonDetailsScreen = navigatePokemonDetailsScreen
             )
         }
@@ -80,7 +82,8 @@ fun PokemonList(
     endReached: Boolean,
     isLoading: Boolean,
     loadPokemons: () -> Unit,
-    navigatePokemonDetailsScreen: (Int) -> Unit
+    loadError: Int,
+    navigatePokemonDetailsScreen: (Int) -> Unit,
 ) {
     LazyColumn(
         contentPadding = PaddingValues(8.dp),
@@ -105,6 +108,11 @@ fun PokemonList(
                 modifier = Modifier.size(128.dp),
                 color = MaterialTheme.colors.onSurface
             )
+        }
+        if (loadError != 0) {
+            PokemonRetryButton(error = stringResource(id = loadError)) {
+                loadPokemons()
+            }
         }
     }
 }

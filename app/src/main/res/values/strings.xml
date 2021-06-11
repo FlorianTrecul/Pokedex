@@ -34,4 +34,5 @@
     <!-- Error -->
     <string name="error_return_api">An unknown error occurred.</string>
     <string name="error_generic">Error.</string>
+    <string name="error_retry">Retry</string>
 </resources>
