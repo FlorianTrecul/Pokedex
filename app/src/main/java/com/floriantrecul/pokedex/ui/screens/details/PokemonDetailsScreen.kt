@@ -215,7 +215,7 @@ fun PokemonDetailsBody(pokemon: PokemonDetailsUiModel) {
                                 icon = icon.getTypeTagIcon(),
                                 height = 100.dp,
                                 width = 100.dp,
-                                name = pokemon.name
+                                contentDescription = pokemon.name
                             )
                         }
                     }

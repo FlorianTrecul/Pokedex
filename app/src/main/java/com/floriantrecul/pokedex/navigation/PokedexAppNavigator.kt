@@ -2,13 +2,12 @@ package com.floriantrecul.pokedex.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
-import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.floriantrecul.pokedex.navigation.Destinations.POKEMON_DETAILS_SCREEN
 import com.floriantrecul.pokedex.navigation.Destinations.POKEMON_LIST_SCREEN
@@ -41,8 +40,8 @@ fun PokedexAppNavigator(startDestination: String = POKEMON_LIST_SCREEN) {
 
     NavHost(navController = navController, startDestination = startDestination) {
         composable(POKEMON_LIST_SCREEN) {
-            val pokemonListViewModel: PokemonListViewModel = navController.hiltNavGraphViewModel(
-                route = POKEMON_LIST_SCREEN
+            val pokemonListViewModel = hiltViewModel<PokemonListViewModel>(
+                navController.getBackStackEntry(route = POKEMON_LIST_SCREEN)
             )
             PokemonListScreen(
                 viewModel = pokemonListViewModel,
@@ -57,8 +56,8 @@ fun PokedexAppNavigator(startDestination: String = POKEMON_LIST_SCREEN) {
                 },
             )
         ) { backStackEntry ->
-            val pokemonDetailsViewModel: PokemonDetailsViewModel = navController.hiltNavGraphViewModel(
-                route = "$POKEMON_DETAILS_SCREEN/{pokemonId}"
+            val pokemonDetailsViewModel = hiltViewModel<PokemonDetailsViewModel>(
+                navController.getBackStackEntry(route = POKEMON_LIST_SCREEN)
             )
             val pokemonId = requireNotNull(backStackEntry.arguments?.getInt("pokemonId"))
             PokemonDetailsStateScreen(

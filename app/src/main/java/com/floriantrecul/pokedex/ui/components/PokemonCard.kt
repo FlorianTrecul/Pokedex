@@ -49,7 +49,7 @@ fun PokemonCard(pokemon: PokemonItemUiModel, navigatePokemonDetailsScreen: (Int)
                 items(pokemon.types) { icon ->
                     PokemonIcon(
                         icon = icon.getTypeIcon(),
-                        name = pokemon.name
+                        contentDescription = pokemon.name
                     )
                 }
             }
