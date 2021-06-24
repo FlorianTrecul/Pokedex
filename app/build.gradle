@@ -55,7 +55,7 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
 
     // Accompanist
-    implementation "com.google.accompanist:accompanist-coil:$accompanistCoilVersion"
+    implementation "com.google.accompanist:accompanist-coil:$accompanistVersion"
 
     // Activity Compose
     implementation "androidx.activity:activity-compose:$activityComposeVersion"
