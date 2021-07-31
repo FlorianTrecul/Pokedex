@@ -23,9 +23,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", 'BASE_URL' , "\"https://pokeapi.co/api/v2/\""
+            buildConfigField "String", 'POKEMON_IMAGE_URL' , "\"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_URL' , "\"https://pokeapi.co/api/v2/\""
+            buildConfigField "String", 'POKEMON_IMAGE_URL' , "\"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\""
         }
     }
     compileOptions {
