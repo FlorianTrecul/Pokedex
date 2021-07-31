@@ -23,12 +23,11 @@
 
 package com.floriantrecul.pokedex.data.repository
 
-import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.data.api.network.mapper.PokemonDtoMapper
 import com.floriantrecul.pokedex.data.api.network.service.PokedexService
 import com.floriantrecul.pokedex.data.model.Pokemon
 import com.floriantrecul.pokedex.data.model.PokemonItem
-import com.floriantrecul.pokedex.util.Resource
+import com.floriantrecul.pokedex.util.*
 import com.floriantrecul.pokedex.util.extension.extractPokemonId
 import javax.inject.Inject
 
@@ -41,7 +40,7 @@ class PokemonRepositoryImpl @Inject constructor(
         val response = try {
             pokedexService.getPokemons(limit, offset).results
         } catch (e: Exception) {
-            return Resource.Error(R.string.error_return_api)
+            return Resource.Error(e.toErrorMessage())
         }
         return Resource.Success(response.map {
             mapper.mapToDomainModelPokemonItem(

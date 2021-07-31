@@ -23,8 +23,13 @@
 
 package com.floriantrecul.pokedex.di
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.floriantrecul.pokedex.BuildConfig
+import com.floriantrecul.pokedex.data.api.network.interceptor.WSApiInterceptor
 import com.floriantrecul.pokedex.data.api.network.service.PokedexService
+import com.floriantrecul.pokedex.util.Constants.WS_CALL_READ_TIMEOUT_SECONDS
+import com.floriantrecul.pokedex.util.Constants.WS_CALL_TIMEOUT_SECONDS
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -35,37 +40,42 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit.SECONDS
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+    @RequiresApi(Build.VERSION_CODES.N)
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+    fun provideWsHttpClient(wSApiInterceptor: WSApiInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(wSApiInterceptor)
+            .connectTimeout(WS_CALL_TIMEOUT_SECONDS, SECONDS)
+            .writeTimeout(WS_CALL_TIMEOUT_SECONDS, SECONDS)
+            .readTimeout(WS_CALL_READ_TIMEOUT_SECONDS, SECONDS)
+            .addInterceptor(HttpLoggingInterceptor().setLevel(if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE))
             .build()
-    }
 
     @Singleton
     @Provides
-    fun provideMoshi(): Moshi {
-        return Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-    }
+    fun provideMoshi(): Moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
 
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
-        return Retrofit.Builder()
-            .client(okHttpClient)
-            .baseUrl(BuildConfig.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-    }
+    fun provideWSApiInterceptor() = WSApiInterceptor()
+
+    @Singleton
+    @Provides
+    fun provideRetrofit(wsHttpClient: OkHttpClient, moshi: Moshi): Retrofit = Retrofit.Builder()
+        .client(wsHttpClient)
+        .baseUrl(BuildConfig.BASE_URL)
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .build()
 
     @Singleton
     @Provides

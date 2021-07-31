@@ -32,7 +32,8 @@
     <string name="pokemon_list_description">The Pokédex contains detailed stats for every creature from the Pokémon games.</string>
 
     <!-- Error -->
-    <string name="error_return_api">An unknown error occurred.</string>
-    <string name="error_generic">Error.</string>
+    <string name="error_generic">An unknown error occurred.</string>
+    <string name="error_no_internet">There is no internet connection.</string>
+    <string name="error_network">There is a network problem</string>
     <string name="error_retry">Retry</string>
 </resources>

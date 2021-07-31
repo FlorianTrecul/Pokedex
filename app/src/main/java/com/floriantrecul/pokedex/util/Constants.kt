@@ -25,6 +25,10 @@ package com.floriantrecul.pokedex.util
 
 object Constants {
 
+    // Timeout
+    const val WS_CALL_TIMEOUT_SECONDS = 10L
+    const val WS_CALL_READ_TIMEOUT_SECONDS = 30L
+
     // PokemonList
     const val PAGE_SIZE = 20
 
