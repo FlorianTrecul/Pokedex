@@ -39,10 +39,12 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
+import coil.annotation.ExperimentalCoilApi
 import com.floriantrecul.pokedex.ui.data.model.PokemonItemUiModel
 import com.floriantrecul.pokedex.util.extension.getMainColor
 import com.floriantrecul.pokedex.util.extension.getTypeIcon
 
+@ExperimentalCoilApi
 @Composable
 fun PokemonCard(pokemon: PokemonItemUiModel, navigatePokemonDetailsScreen: (Int) -> Unit) {
     Card(

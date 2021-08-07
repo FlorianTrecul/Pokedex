@@ -25,20 +25,25 @@ package com.floriantrecul.pokedex.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.coil.rememberCoilPainter
-import com.google.accompanist.imageloading.ImageLoadState
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.ImagePainter
+import coil.compose.rememberImagePainter
 
+@ExperimentalCoilApi
 @Composable
 fun PokemonIcon(icon: Int, height: Dp = 38.dp, width: Dp = 38.dp, contentDescription: String) {
-    val painter = rememberCoilPainter(
-        request = icon,
-        fadeIn = true
+    val painter = rememberImagePainter(
+        data = icon,
+        builder = {
+            crossfade(true)
+        }
     )
 
     Image(
@@ -50,9 +55,9 @@ fun PokemonIcon(icon: Int, height: Dp = 38.dp, width: Dp = 38.dp, contentDescrip
         contentDescription = contentDescription
 
     )
-    when (painter.loadState) {
-        is ImageLoadState.Loading -> CircularProgressLoader()
-        is ImageLoadState.Error -> { }
+
+    when (painter.state) {
+        is ImagePainter.State.Loading -> CircularProgressLoader(modifier = Modifier.size(48.dp))
         else -> Unit
     }
 }

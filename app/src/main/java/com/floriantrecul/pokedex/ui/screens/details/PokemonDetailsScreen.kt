@@ -62,6 +62,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.annotation.ExperimentalCoilApi
 import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.ui.components.PokemonIcon
 import com.floriantrecul.pokedex.ui.components.PokemonId
@@ -219,6 +220,7 @@ fun PokemonDetailsBackground(
     }
 }
 
+@ExperimentalCoilApi
 @Composable
 fun PokemonDetailsBody(pokemon: PokemonDetailsUiModel) {
     Column(modifier = Modifier.fillMaxSize()) {

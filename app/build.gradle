@@ -59,11 +59,11 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
 
-    // Accompanist
-    implementation "com.google.accompanist:accompanist-coil:$accompanistVersion"
-
     // Activity Compose
     implementation "androidx.activity:activity-compose:$activityComposeVersion"
+
+    // Coil Compose
+    implementation("io.coil-kt:coil-compose:$coilComposeVersion")
 
     // Constraint Layout
     implementation "androidx.constraintlayout:constraintlayout-compose:$constraintLayoutComposeVersion"

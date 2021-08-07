@@ -29,14 +29,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.coil.rememberCoilPainter
-import com.google.accompanist.imageloading.ImageLoadState
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.ImagePainter
+import coil.compose.rememberImagePainter
 
+@ExperimentalCoilApi
 @Composable
 fun PokemonImage(uri: String, modifier: Modifier = Modifier, contentDescription: String? = null) {
-    val painter = rememberCoilPainter(
-        request = uri,
-        fadeIn = true
+    val painter = rememberImagePainter(
+        data = uri,
+        builder = {
+            crossfade(true)
+        }
     )
 
     Image(
@@ -45,9 +49,9 @@ fun PokemonImage(uri: String, modifier: Modifier = Modifier, contentDescription:
         contentScale = ContentScale.Inside,
         contentDescription = contentDescription
     )
-    when (painter.loadState) {
-        is ImageLoadState.Loading -> CircularProgressLoader(modifier = Modifier.size(96.dp))
-        is ImageLoadState.Error -> { }
+
+    when (painter.state) {
+        is ImagePainter.State.Loading -> CircularProgressLoader(modifier = Modifier.size(100.dp))
         else -> Unit
     }
 }
