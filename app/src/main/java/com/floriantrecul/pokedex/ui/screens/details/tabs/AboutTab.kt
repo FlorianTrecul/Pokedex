@@ -42,7 +42,6 @@ import com.floriantrecul.pokedex.ui.components.PokemonInfoLabel
 import com.floriantrecul.pokedex.ui.components.PokemonInfoText
 import com.floriantrecul.pokedex.ui.components.PokemonInfoTitle
 import com.floriantrecul.pokedex.ui.data.model.PokemonAboutUiModel
-import java.util.*
 import kotlin.math.round
 
 @Composable
@@ -87,9 +86,9 @@ fun AboutTab(pokemonAbout: PokemonAboutUiModel) {
                 LazyRow(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)) {
                     itemsIndexed(pokemonAbout.abilities) { index, ability ->
                         if (index == pokemonAbout.abilities.lastIndex) {
-                            PokemonInfoText(text = ability.name.capitalize(Locale.ROOT))
+                            PokemonInfoText(text = ability.name.replaceFirstChar { it.uppercaseChar() })
                         } else {
-                            PokemonInfoText(text = "${ability.name.capitalize(Locale.ROOT)}, ")
+                            PokemonInfoText(text = "${ability.name.replaceFirstChar { it.uppercaseChar() }}, ")
                         }
                     }
                 }

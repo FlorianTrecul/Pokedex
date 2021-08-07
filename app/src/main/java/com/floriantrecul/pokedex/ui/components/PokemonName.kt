@@ -30,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
-import java.util.*
 
 @Composable
 fun PokemonName(
@@ -39,7 +38,7 @@ fun PokemonName(
     modifier: Modifier = Modifier
 ) {
     Text(
-        text = name?.capitalize(Locale.getDefault()) ?: "",
+        text = name?.replaceFirstChar { it.uppercaseChar() } ?: "",
         modifier = modifier,
         style = style,
         color = Color.White,

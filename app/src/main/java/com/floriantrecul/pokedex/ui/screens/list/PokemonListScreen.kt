@@ -23,15 +23,7 @@
 
 package com.floriantrecul.pokedex.ui.screens.list
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.MaterialTheme
@@ -47,12 +39,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.annotation.ExperimentalCoilApi
 import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.ui.components.CircularProgressLoader
 import com.floriantrecul.pokedex.ui.components.PokemonCard
 import com.floriantrecul.pokedex.ui.components.PokemonRetryButton
 import com.floriantrecul.pokedex.ui.data.model.PokemonItemUiModel
 
+@ExperimentalCoilApi
 @Composable
 fun PokemonListScreen(
     viewModel: PokemonListViewModel,
@@ -99,6 +93,7 @@ fun PokemonListScreen(
     }
 }
 
+@ExperimentalCoilApi
 @Composable
 fun PokemonList(
     pokemons: List<PokemonItemUiModel>,

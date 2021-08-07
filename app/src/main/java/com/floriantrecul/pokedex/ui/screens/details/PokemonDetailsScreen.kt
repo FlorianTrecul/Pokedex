@@ -24,28 +24,11 @@
 package com.floriantrecul.pokedex.ui.screens.details
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFromBaseline
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Tab
-import androidx.compose.material.TabRow
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
@@ -64,11 +47,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.floriantrecul.pokedex.R
-import com.floriantrecul.pokedex.ui.components.PokemonIcon
-import com.floriantrecul.pokedex.ui.components.PokemonId
-import com.floriantrecul.pokedex.ui.components.PokemonImage
-import com.floriantrecul.pokedex.ui.components.PokemonName
-import com.floriantrecul.pokedex.ui.components.PokemonProgressLoader
+import com.floriantrecul.pokedex.ui.components.*
 import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
 import com.floriantrecul.pokedex.ui.screens.details.tabs.AboutTab
 import com.floriantrecul.pokedex.ui.screens.details.tabs.BaseStatsTab
@@ -78,6 +57,7 @@ import com.floriantrecul.pokedex.util.Resource
 import com.floriantrecul.pokedex.util.extension.getMainColor
 import com.floriantrecul.pokedex.util.extension.getTypeTagIcon
 
+@ExperimentalCoilApi
 @Composable
 fun PokemonDetailsStateScreen(
     viewModel: PokemonDetailsViewModel,
@@ -101,6 +81,7 @@ fun PokemonDetailsStateScreen(
     }
 }
 
+@ExperimentalCoilApi
 @Composable
 fun PokemonDetailsScreen(
     navigateBack: () -> Unit,
@@ -178,6 +159,7 @@ fun PokemonDetailsTopBar(
     )
 }
 
+@ExperimentalCoilApi
 @Composable
 fun PokemonDetailsBackground(
     loadSelectedTab: (PokemonDetailsTabs) -> Unit,

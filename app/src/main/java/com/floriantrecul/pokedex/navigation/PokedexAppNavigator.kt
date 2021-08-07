@@ -32,6 +32,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import coil.annotation.ExperimentalCoilApi
 import com.floriantrecul.pokedex.navigation.Destinations.POKEMON_DETAILS_SCREEN
 import com.floriantrecul.pokedex.navigation.Destinations.POKEMON_LIST_SCREEN
 import com.floriantrecul.pokedex.ui.screens.details.PokemonDetailsStateScreen
@@ -56,6 +57,7 @@ class Actions(navController: NavHostController) {
     }
 }
 
+@ExperimentalCoilApi
 @Composable
 fun PokedexAppNavigator(startDestination: String = POKEMON_LIST_SCREEN) {
     val navController = rememberNavController()

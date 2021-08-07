@@ -23,19 +23,13 @@
 
 package com.floriantrecul.pokedex.ui.screens.details.tabs
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.floriantrecul.pokedex.ui.components.PokemonInfoText
 import com.floriantrecul.pokedex.ui.data.model.PokemonMovesUiModel
-import java.util.*
 
 @Composable
 fun MovesTab(moves: List<PokemonMovesUiModel>) {
@@ -59,13 +53,13 @@ fun MoveRow(
     Column {
         Row {
             PokemonInfoText(
-                text = moves[rowIndex * 2].name.capitalize(Locale.ROOT),
+                text = moves[rowIndex * 2].name.replaceFirstChar { it.uppercaseChar() },
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier = Modifier.width(16.dp))
             if (moves.size >= rowIndex * 2 + 2) {
                 PokemonInfoText(
-                    text = moves[rowIndex * 2 + 1].name.capitalize(Locale.ROOT),
+                    text = moves[rowIndex * 2 + 1].name.replaceFirstChar { it.uppercaseChar() },
                     modifier = Modifier.weight(1f)
                 )
             } else {
