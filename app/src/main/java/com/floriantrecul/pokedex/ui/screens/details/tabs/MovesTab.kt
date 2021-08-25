@@ -33,7 +33,11 @@ import com.floriantrecul.pokedex.ui.data.model.PokemonMovesUiModel
 
 @Composable
 fun MovesTab(moves: List<PokemonMovesUiModel>) {
-    LazyColumn(contentPadding = PaddingValues(16.dp)) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
         val itemCount = if (moves.size % 2 == 0) {
             moves.size / 2
         } else {

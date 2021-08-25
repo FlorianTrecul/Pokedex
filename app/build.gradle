@@ -59,6 +59,10 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
 
+    // Accompanist
+    implementation "com.google.accompanist:accompanist-pager:$accompanistVersion"
+    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanistVersion"
+
     // Activity Compose
     implementation "androidx.activity:activity-compose:$activityComposeVersion"
 

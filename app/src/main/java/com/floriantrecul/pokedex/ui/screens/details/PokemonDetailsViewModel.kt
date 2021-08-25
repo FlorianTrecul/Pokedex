@@ -46,7 +46,6 @@ class PokemonDetailsViewModel @Inject constructor(
     private var pokemonId: Int = 0
 
     var isFavorite = mutableStateOf(false)
-    var selectedTab = mutableStateOf(PokemonDetailsTabs.About.titleRes)
 
     private val pokemonMutableState = mutableStateOf<Resource<PokemonDetailsUiModel>>(Resource.Empty)
     val pokemonState: Resource<PokemonDetailsUiModel> by pokemonMutableState
@@ -71,9 +70,5 @@ class PokemonDetailsViewModel @Inject constructor(
 
     fun manageFavorite() {
         isFavorite.value = !isFavorite.value
-    }
-
-    fun loadSelectedTab(tab: PokemonDetailsTabs) {
-        selectedTab.value = tab.titleRes
     }
 }

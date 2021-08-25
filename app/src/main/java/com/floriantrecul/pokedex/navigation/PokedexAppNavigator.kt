@@ -23,6 +23,7 @@
 
 package com.floriantrecul.pokedex.navigation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -39,6 +40,7 @@ import com.floriantrecul.pokedex.ui.screens.details.PokemonDetailsStateScreen
 import com.floriantrecul.pokedex.ui.screens.details.PokemonDetailsViewModel
 import com.floriantrecul.pokedex.ui.screens.list.PokemonListScreen
 import com.floriantrecul.pokedex.ui.screens.list.PokemonListViewModel
+import com.google.accompanist.pager.ExperimentalPagerApi
 
 private object Destinations {
     const val POKEMON_LIST_SCREEN = "pokemonListScreen"
@@ -57,6 +59,8 @@ class Actions(navController: NavHostController) {
     }
 }
 
+@ExperimentalFoundationApi
+@ExperimentalPagerApi
 @ExperimentalCoilApi
 @Composable
 fun PokedexAppNavigator(startDestination: String = POKEMON_LIST_SCREEN) {

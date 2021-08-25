@@ -25,6 +25,7 @@ package com.floriantrecul.pokedex.ui.screens.details.tabs
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -57,7 +58,11 @@ fun AboutTab(pokemonAbout: PokemonAboutUiModel) {
     val pokemonHeightInMeters = remember { round(pokemonAbout.height * 100f) / 1000f }
     val pokemonWeightInKg = remember { round(pokemonAbout.weight * 100f) / 1000f }
 
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
         PokemonInfoTitle(title = R.string.tab_about_title_description)
         Text(
             text = pokemonAbout.description.replace("\n", " "),

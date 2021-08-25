@@ -23,6 +23,7 @@
 
 package com.floriantrecul.pokedex.ui.screens.details
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -33,15 +34,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -52,11 +51,19 @@ import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
 import com.floriantrecul.pokedex.ui.screens.details.tabs.AboutTab
 import com.floriantrecul.pokedex.ui.screens.details.tabs.BaseStatsTab
 import com.floriantrecul.pokedex.ui.screens.details.tabs.MovesTab
+import com.floriantrecul.pokedex.ui.screens.details.tabs.TabItem
 import com.floriantrecul.pokedex.util.PokemonDetailsTabs
 import com.floriantrecul.pokedex.util.Resource
 import com.floriantrecul.pokedex.util.extension.getMainColor
 import com.floriantrecul.pokedex.util.extension.getTypeTagIcon
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.PagerState
+import com.google.accompanist.pager.pagerTabIndicatorOffset
+import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.launch
 
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
 @ExperimentalCoilApi
 @Composable
 fun PokemonDetailsStateScreen(
@@ -64,32 +71,31 @@ fun PokemonDetailsStateScreen(
     navigateBack: () -> Unit,
 ) {
     val isFavorite by remember { viewModel.isFavorite }
-    val selectedTab by remember { viewModel.selectedTab }
 
     when (val pokemonState = viewModel.pokemonState) {
-        is Resource.Empty -> {}
-        is Resource.Error -> {}
+        is Resource.Empty -> {
+        }
+        is Resource.Error -> {
+        }
         is Resource.Loading -> PokemonProgressLoader()
         is Resource.Success -> PokemonDetailsScreen(
             navigateBack = navigateBack,
             isFavorite = isFavorite,
-            selectedTab = selectedTab,
             pokemon = pokemonState.data,
-            manageFavorite = viewModel::manageFavorite,
-            loadSelectedTab = viewModel::loadSelectedTab
+            manageFavorite = viewModel::manageFavorite
         )
     }
 }
 
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
 @ExperimentalCoilApi
 @Composable
 fun PokemonDetailsScreen(
     navigateBack: () -> Unit,
     isFavorite: Boolean,
-    selectedTab: Int,
     pokemon: PokemonDetailsUiModel,
-    manageFavorite: () -> Unit,
-    loadSelectedTab: (PokemonDetailsTabs) -> Unit,
+    manageFavorite: () -> Unit
 ) {
 
     Scaffold(
@@ -102,11 +108,7 @@ fun PokemonDetailsScreen(
             )
         },
         content = {
-            PokemonDetailsBackground(
-                loadSelectedTab = loadSelectedTab,
-                selectedTab = selectedTab,
-                pokemon = pokemon
-            )
+            PokemonDetailsBackground(pokemon = pokemon)
         }
     )
 }
@@ -159,11 +161,11 @@ fun PokemonDetailsTopBar(
     )
 }
 
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
 @ExperimentalCoilApi
 @Composable
 fun PokemonDetailsBackground(
-    loadSelectedTab: (PokemonDetailsTabs) -> Unit,
-    selectedTab: Int,
     pokemon: PokemonDetailsUiModel
 ) {
     Column(
@@ -193,11 +195,7 @@ fun PokemonDetailsBackground(
                 .clip(shape = RoundedCornerShape(25.dp, 25.dp))
                 .background(MaterialTheme.colors.background)
         ) {
-            PokemonDetailsInformationTabs(
-                loadSelectedTab = loadSelectedTab,
-                selectedTab = selectedTab,
-                pokemon = pokemon
-            )
+            PokemonDetailsInformationTabs(pokemon = pokemon)
         }
     }
 }
@@ -249,59 +247,76 @@ fun PokemonDetailsBody(pokemon: PokemonDetailsUiModel) {
     }
 }
 
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
 @Composable
 fun PokemonDetailsInformationTabs(
-    loadSelectedTab: (PokemonDetailsTabs) -> Unit,
-    selectedTab: Int,
     pokemon: PokemonDetailsUiModel
 ) {
-    val (isSelectedTab) = remember { mutableStateOf(PokemonDetailsTabs.About) }
-    val tabs = PokemonDetailsTabs.values()
+    @ExperimentalFoundationApi
+    val pokemonInformationTabs = listOf(
+        TabItem.About(pokemon.pokemonAbout),
+        TabItem.BaseStats(pokemon.stats),
+        TabItem.Moves(pokemon.moves)
+    )
+    val pagerState = rememberPagerState(pageCount = pokemonInformationTabs.size)
 
-    Column {
-        TabRow(
-            selectedTabIndex = isSelectedTab.ordinal,
-            modifier = Modifier.padding(horizontal = 16.dp),
-            backgroundColor = Color.Transparent,
-            indicator = { },
-            divider = { }
-        ) {
-            tabs.forEachIndexed { index, tab ->
-                val isSelected = index == isSelectedTab.titleRes
-                Tab(
-                    selected = isSelected,
-                    selectedContentColor = MaterialTheme.colors.onBackground,
-                    unselectedContentColor = MaterialTheme.colors.onBackground.copy(
-                        alpha = ContentAlpha.disabled
-                    ),
-                    onClick = { loadSelectedTab(tab) }
-                ) {
-                    val tabName = stringResource(id = tab.titleRes)
-                    Text(
-                        text = tabName,
-                        modifier = Modifier.paddingFromBaseline(top = 64.dp),
-                        style = MaterialTheme.typography.button,
-                        color = MaterialTheme.colors.onBackground
-                    )
-                }
-            }
+    var selectedTabIndex by remember {
+        mutableStateOf(0)
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 16.dp)
+    ) {
+        PokemonInformationTab(pagerState, pokemonInformationTabs) {
+            selectedTabIndex = it
         }
-        SelectedPokemonInformationTab(selectedTab, pokemon)
-
+        Spacer(modifier = Modifier.height(2.dp))
+        pokemonInformationTabs[selectedTabIndex].screen()
     }
 }
 
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
 @Composable
-fun SelectedPokemonInformationTab(selectedTab: Int, pokemon: PokemonDetailsUiModel) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+fun PokemonInformationTab(
+    pagerState: PagerState,
+    pokemonInformationTabs: List<TabItem>,
+    onTabSelected: (selectedIndex: Int) -> Unit,
+) {
+    var selectedTabIndex by remember {
+        mutableStateOf(0)
+    }
+    val scope = rememberCoroutineScope()
+    TabRow(
+        selectedTabIndex = selectedTabIndex,
+        backgroundColor = MaterialTheme.colors.background,
+        contentColor = Color.White,
+        indicator = { tabPositions ->
+            TabRowDefaults.Indicator(
+                Modifier.pagerTabIndicatorOffset(pagerState, tabPositions)
+            )
+        }
     ) {
-        when (selectedTab) {
-            R.string.pokemon_detail_about_tab -> AboutTab(pokemon.pokemonAbout)
-            R.string.pokemon_detail_base_stats_tab -> BaseStatsTab(pokemon.stats)
-            R.string.pokemon_detail_moves_tab -> MovesTab(pokemon.moves)
+        pokemonInformationTabs.forEachIndexed { index, tabItem ->
+            Tab(
+                text = {
+                    Text(
+                        text = stringResource(id = tabItem.title),
+                        color = MaterialTheme.colors.onPrimary
+                    )
+                },
+                selected = selectedTabIndex == index,
+                onClick = {
+                    scope.launch {
+                        pagerState.animateScrollToPage(index)
+                    }
+                    selectedTabIndex = index
+                    onTabSelected(index)
+                }
+            )
         }
     }
 }
