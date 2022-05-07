@@ -25,74 +25,47 @@ package com.floriantrecul.pokedex.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import coil.annotation.ExperimentalCoilApi
-import com.floriantrecul.pokedex.navigation.Destinations.POKEMON_DETAILS_SCREEN
-import com.floriantrecul.pokedex.navigation.Destinations.POKEMON_LIST_SCREEN
-import com.floriantrecul.pokedex.ui.screens.details.PokemonDetailsStateScreen
-import com.floriantrecul.pokedex.ui.screens.details.PokemonDetailsViewModel
+import com.floriantrecul.pokedex.ui.screens.details.PokemonDetailScreen
 import com.floriantrecul.pokedex.ui.screens.list.PokemonListScreen
-import com.floriantrecul.pokedex.ui.screens.list.PokemonListViewModel
+import com.floriantrecul.pokedex.util.Constants.POKEMON_DETAILS_SCREEN
 import com.google.accompanist.pager.ExperimentalPagerApi
-
-private object Destinations {
-    const val POKEMON_LIST_SCREEN = "pokemonListScreen"
-    const val POKEMON_DETAILS_SCREEN = "pokemonDetailsScreen"
-}
-
-class Actions(navController: NavHostController) {
-    val navigateToPokemonListScreen: () -> Unit = {
-        navController.navigate(POKEMON_LIST_SCREEN)
-    }
-    val navigateToPokemonDetailsScreen: (Int) -> Unit = { pokemonId ->
-        navController.navigate("$POKEMON_DETAILS_SCREEN/$pokemonId")
-    }
-    val navigateBack: () -> Unit = {
-        navController.navigateUp()
-    }
-}
 
 @ExperimentalFoundationApi
 @ExperimentalPagerApi
 @ExperimentalCoilApi
 @Composable
-fun PokedexAppNavigator(startDestination: String = POKEMON_LIST_SCREEN) {
+fun PokedexAppNavigator(startDestination: String = Screens.PokemonListScreen.route) {
     val navController = rememberNavController()
-    val actions = remember(navController) { Actions(navController) }
 
     NavHost(navController = navController, startDestination = startDestination) {
-        composable(POKEMON_LIST_SCREEN) {
-            val pokemonListViewModel = hiltViewModel<PokemonListViewModel>(
-                navController.getBackStackEntry(route = POKEMON_LIST_SCREEN)
-            )
+        composable(route = Screens.PokemonListScreen.route) {
             PokemonListScreen(
-                viewModel = pokemonListViewModel,
-                navigatePokemonDetailsScreen = actions.navigateToPokemonDetailsScreen
+                navigatePokemonDetailsScreen = { pokemonId ->
+                    navController.navigate("$POKEMON_DETAILS_SCREEN/$pokemonId")
+                }
             )
         }
         composable(
-            "$POKEMON_DETAILS_SCREEN/{pokemonId}",
+            route = Screens.PokemonDetailScreen.route,
             arguments = listOf(
                 navArgument("pokemonId") {
                     type = NavType.IntType
-                },
+                }
             )
-        ) { backStackEntry ->
-            val pokemonDetailsViewModel = hiltViewModel<PokemonDetailsViewModel>(
-                navController.getBackStackEntry(route = POKEMON_LIST_SCREEN)
+        ) {
+            PokemonDetailScreen(
+                navigateBack = {
+                    navController.popBackStack()
+                }
             )
-            val pokemonId = requireNotNull(backStackEntry.arguments?.getInt("pokemonId"))
-            PokemonDetailsStateScreen(
-                viewModel = pokemonDetailsViewModel.also { it.toInit(pokemonId) },
-                navigateBack = actions.navigateBack
-            )
+
         }
+
     }
 }

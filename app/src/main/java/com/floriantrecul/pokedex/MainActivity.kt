@@ -38,9 +38,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @ExperimentalCoilApi
-    @ExperimentalFoundationApi
-    @ExperimentalPagerApi
+    @OptIn(
+        ExperimentalPagerApi::class, ExperimentalFoundationApi::class,
+        ExperimentalCoilApi::class
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

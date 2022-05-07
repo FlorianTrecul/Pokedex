@@ -25,34 +25,35 @@ package com.floriantrecul.pokedex.ui.screens.details
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.data.repository.PokemonRepository
 import com.floriantrecul.pokedex.ui.data.mapper.PokemonDetailsUiMapper
 import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
-import com.floriantrecul.pokedex.util.PokemonDetailsTabs
 import com.floriantrecul.pokedex.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
-class PokemonDetailsViewModel @Inject constructor(
+class PokemonDetailViewModel @Inject constructor(
     private val pokemonRepository: PokemonRepository,
-    private val pokemonDetailsUiMapper: PokemonDetailsUiMapper
+    private val pokemonDetailsUiMapper: PokemonDetailsUiMapper,
+    private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
-    private var pokemonId: Int = 0
 
     var isFavorite = mutableStateOf(false)
 
     private val pokemonMutableState = mutableStateOf<Resource<PokemonDetailsUiModel>>(Resource.Empty)
     val pokemonState: Resource<PokemonDetailsUiModel> by pokemonMutableState
 
-    fun toInit(pokemonId: Int) {
-        this.pokemonId = pokemonId
-        loadPokemon(pokemonId)
+    init {
+        viewModelScope.launch {
+            val pokemonId = savedStateHandle.get<Int>("pokemonId") ?: return@launch
+            loadPokemon(pokemonId)
+        }
     }
 
     private fun loadPokemon(pokemonId: Int) {

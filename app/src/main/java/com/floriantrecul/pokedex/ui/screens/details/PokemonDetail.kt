@@ -40,19 +40,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.ui.components.*
 import com.floriantrecul.pokedex.ui.data.model.PokemonDetailsUiModel
-import com.floriantrecul.pokedex.ui.screens.details.tabs.AboutTab
-import com.floriantrecul.pokedex.ui.screens.details.tabs.BaseStatsTab
-import com.floriantrecul.pokedex.ui.screens.details.tabs.MovesTab
 import com.floriantrecul.pokedex.ui.screens.details.tabs.TabItem
-import com.floriantrecul.pokedex.util.PokemonDetailsTabs
 import com.floriantrecul.pokedex.util.Resource
 import com.floriantrecul.pokedex.util.extension.getMainColor
 import com.floriantrecul.pokedex.util.extension.getTypeTagIcon
@@ -66,9 +62,9 @@ import kotlinx.coroutines.launch
 @ExperimentalFoundationApi
 @ExperimentalCoilApi
 @Composable
-fun PokemonDetailsStateScreen(
-    viewModel: PokemonDetailsViewModel,
+fun PokemonDetailScreen(
     navigateBack: () -> Unit,
+    viewModel: PokemonDetailViewModel = hiltViewModel()
 ) {
     val isFavorite by remember { viewModel.isFavorite }
 
@@ -78,7 +74,7 @@ fun PokemonDetailsStateScreen(
         is Resource.Error -> {
         }
         is Resource.Loading -> PokemonProgressLoader()
-        is Resource.Success -> PokemonDetailsScreen(
+        is Resource.Success -> PokemonDetail(
             navigateBack = navigateBack,
             isFavorite = isFavorite,
             pokemon = pokemonState.data,
@@ -91,7 +87,7 @@ fun PokemonDetailsStateScreen(
 @ExperimentalFoundationApi
 @ExperimentalCoilApi
 @Composable
-fun PokemonDetailsScreen(
+fun PokemonDetail(
     navigateBack: () -> Unit,
     isFavorite: Boolean,
     pokemon: PokemonDetailsUiModel,
@@ -100,7 +96,7 @@ fun PokemonDetailsScreen(
 
     Scaffold(
         topBar = {
-            PokemonDetailsTopBar(
+            PokemonDetailTopBar(
                 navigateBack = navigateBack,
                 isFavorite = isFavorite,
                 pokemon = pokemon,
@@ -108,13 +104,13 @@ fun PokemonDetailsScreen(
             )
         },
         content = {
-            PokemonDetailsBackground(pokemon = pokemon)
+            PokemonDetailBackground(pokemon = pokemon)
         }
     )
 }
 
 @Composable
-fun PokemonDetailsTopBar(
+fun PokemonDetailTopBar(
     navigateBack: () -> Unit,
     isFavorite: Boolean,
     pokemon: PokemonDetailsUiModel,
@@ -165,7 +161,7 @@ fun PokemonDetailsTopBar(
 @ExperimentalFoundationApi
 @ExperimentalCoilApi
 @Composable
-fun PokemonDetailsBackground(
+fun PokemonDetailBackground(
     pokemon: PokemonDetailsUiModel
 ) {
     Column(
@@ -184,7 +180,7 @@ fun PokemonDetailsBackground(
                 .fillMaxSize()
                 .weight(1f)
         ) {
-            PokemonDetailsBody(
+            PokemonDetailBody(
                 pokemon = pokemon
             )
         }
@@ -195,14 +191,14 @@ fun PokemonDetailsBackground(
                 .clip(shape = RoundedCornerShape(25.dp, 25.dp))
                 .background(MaterialTheme.colors.background)
         ) {
-            PokemonDetailsInformationTabs(pokemon = pokemon)
+            PokemonDetailInformationTabs(pokemon = pokemon)
         }
     }
 }
 
 @ExperimentalCoilApi
 @Composable
-fun PokemonDetailsBody(pokemon: PokemonDetailsUiModel) {
+fun PokemonDetailBody(pokemon: PokemonDetailsUiModel) {
     Column(modifier = Modifier.fillMaxSize()) {
         Row(
             modifier = Modifier
@@ -250,10 +246,9 @@ fun PokemonDetailsBody(pokemon: PokemonDetailsUiModel) {
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @Composable
-fun PokemonDetailsInformationTabs(
+fun PokemonDetailInformationTabs(
     pokemon: PokemonDetailsUiModel
 ) {
-    @ExperimentalFoundationApi
     val pokemonInformationTabs = listOf(
         TabItem.About(pokemon.pokemonAbout),
         TabItem.BaseStats(pokemon.stats),

@@ -37,4 +37,8 @@ object Constants {
     const val ANIMATION_DURATION = 1000
     const val ANIMATION_DELAY = 0
 
+    // Destination
+    const val POKEMON_LIST_SCREEN = "pokemonListScreen"
+    const val POKEMON_DETAILS_SCREEN = "pokemonDetailsScreen"
+
 }

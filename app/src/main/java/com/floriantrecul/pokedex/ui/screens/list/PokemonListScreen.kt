@@ -39,6 +39,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import com.floriantrecul.pokedex.R
 import com.floriantrecul.pokedex.ui.components.CircularProgressLoader
@@ -49,8 +50,8 @@ import com.floriantrecul.pokedex.ui.data.model.PokemonItemUiModel
 @ExperimentalCoilApi
 @Composable
 fun PokemonListScreen(
-    viewModel: PokemonListViewModel,
-    navigatePokemonDetailsScreen: (Int) -> Unit
+    navigatePokemonDetailsScreen: (Int) -> Unit,
+    viewModel: PokemonListViewModel = hiltViewModel()
 ) {
     val pokemonList by remember { viewModel.pokemonList }
     val endReached by remember { viewModel.endReached }
